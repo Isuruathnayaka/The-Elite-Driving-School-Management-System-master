@@ -81,8 +81,10 @@ public class StudentController implements Initializable {
         colContact.setCellValueFactory(new PropertyValueFactory<>("contact"));
         colEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
         colDate.setCellValueFactory(new PropertyValueFactory<>("date"));
-        colCourses.setCellValueFactory(new PropertyValueFactory<>("courses"));
-        colCourseId.setCellValueFactory(new PropertyValueFactory<>("courseID"));
+        colCourses.setCellValueFactory(new PropertyValueFactory<>("courseType")); // show names
+        colCourseId.setCellValueFactory(new PropertyValueFactory<>("courses"));   // show IDs
+
+
 
 
     }
@@ -99,26 +101,46 @@ public class StudentController implements Initializable {
     }
 
     private void loadTableData() {
-//        ArrayList<StudentDTO> allStudents = studentBo.getAllStudents();
-//        ObservableList<StudentTM> tableList = FXCollections.observableArrayList();
-//
-//        if (allStudents != null) {
-//            for (StudentDTO student : allStudents) {
-//                tableList.add(new StudentTM(
-//                        student.getStudentID(),
-//                        student.getName(),
-//                        student.getAge(),
-//                        student.getAddress(),
-//                        student.getContact(),
-//                        student.getEmail(),
-//                        student.getRegistrationDate(),
-//                        student.getCourse(),
-//                        student.getCourseId()
-//                ));
-//            }
-//        }
-//        table.setItems(tableList);
+        ArrayList<StudentDTO> allStudents = studentBo.getAllStudents();
+        ObservableList<StudentTM> tableList = FXCollections.observableArrayList();
+
+        if (allStudents != null) {
+            for (StudentDTO student : allStudents) {
+
+                // Build comma-separated course IDs (or names)
+                List<String> courseIds = student.getCourseIdList(); // List<String>
+                String courseIdsStr = "";
+                if (courseIds != null && !courseIds.isEmpty()) {
+                    courseIdsStr = String.join(", ", courseIds);
+                }
+
+                // Optional: To show course names instead of IDs, use courseBo.findById()
+            /*
+            List<String> courseNames = new ArrayList<>();
+            for (String id : courseIds) {
+                CourseDTO c = courseBo.findById(id);
+                if (c != null) courseNames.add(c.getName());
+            }
+            String courseNamesStr = String.join(", ", courseNames);
+            */
+
+                tableList.add(new StudentTM(
+                        student.getStudentID(),
+                        student.getName(),
+                        student.getAge(),
+                        student.getAddress(),
+                        student.getContact(),
+                        student.getEmail(),
+                        student.getRegistrationDate(),
+                        student.getCourseType(), // human-readable courseType
+                        courseIdsStr             // or courseNamesStr if you prefer names
+                ));
+            }
+        }
+
+        table.setItems(tableList);
     }
+
 
     public void btnAdd(ActionEvent actionEvent) {
         StudentDTO studentDTO = checkMatch();

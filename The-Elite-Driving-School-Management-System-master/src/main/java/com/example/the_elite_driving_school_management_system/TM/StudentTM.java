@@ -10,8 +10,48 @@ public class StudentTM implements Comparable<StudentTM> {
     private String contact;
     private String email;
     private LocalDate date;     // must match PropertyValueFactory
-    private String courses;     // must match PropertyValueFactory
-    private String courseID;    // must match PropertyValueFactory
+    private String courseType;
+    private String courses;    // must match PropertyValueFactory
+
+    public void setStudentId(String studentId) {
+        this.studentId = studentId;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public void setContact(String contact) {
+        this.contact = contact;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
+
+    public String getCourseType() {
+        return courseType;
+    }
+
+    public void setCourseType(String courseType) {
+        this.courseType = courseType;
+    }
+
+    public void setCourses(String courses) {
+        this.courses = courses;
+    }
 
     public StudentTM(String studentId, String name, int age, String address, String contact,
                      String email, LocalDate date, String courses, String courseID) {
@@ -22,8 +62,9 @@ public class StudentTM implements Comparable<StudentTM> {
         this.contact = contact;
         this.email = email;
         this.date = date;
-        this.courses = courses;
-        this.courseID = courseID;
+        this.courseType = courses;
+        this.courses = courseID;
+
     }
 
     public String getStudentId() { return studentId; }
@@ -34,7 +75,6 @@ public class StudentTM implements Comparable<StudentTM> {
     public String getEmail() { return email; }
     public LocalDate getDate() { return date; }
     public String getCourses() { return courses; }
-    public String getCourseID() { return courseID; }
 
     @Override
     public int compareTo(StudentTM o) {
@@ -49,7 +89,8 @@ public class StudentTM implements Comparable<StudentTM> {
         return courses;
     }
 
+
     public String getCourseId() {
-        return courseID;
+        return courses;
     }
 }

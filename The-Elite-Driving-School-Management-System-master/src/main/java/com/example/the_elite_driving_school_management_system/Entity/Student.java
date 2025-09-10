@@ -38,13 +38,14 @@ public class Student {
 
     @Column(name = "courseType", nullable = false)
     private String courseType;
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "student_course",
             joinColumns = @JoinColumn(name = "student_id"),
             inverseJoinColumns = @JoinColumn(name = "course_id")
     )
     private List<Course> courses = new ArrayList<>();
+
 
     public Student(String studentID, String name, int age, String address, String contact, String email, LocalDate date, String courseType) {
         this.id = studentID;
