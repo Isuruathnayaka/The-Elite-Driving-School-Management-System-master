@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.the_elite_driving_school_management_system.Controller.DashboardController">
+   <children>
+      <AnchorPane layoutX="-3.0" prefHeight="1080.0" prefWidth="88.0" style="-fx-background-color: #57169c;">
+         <children>
+            <ImageView fx:id="btnDashboard" fitHeight="44.0" fitWidth="44.0" layoutX="20.0" layoutY="158.0">
+               <image>
+                  <Image url="@../images/dashboard.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="btnStudentManage" fitHeight="44.0" fitWidth="44.0" layoutX="20.0" layoutY="261.0">
+               <image>
+                  <Image url="@../images/student.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="btnCourcesManage" fitHeight="44.0" fitWidth="44.0" layoutX="20.0" layoutY="369.0">
+               <image>
+                  <Image url="@../images/cource.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="btnSettings" fitHeight="44.0" fitWidth="44.0" layoutX="22.0" layoutY="757.0">
+               <image>
+                  <Image url="@../images/settings.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="btnInstructorManage" fitHeight="53.0" fitWidth="51.0" layoutX="17.0" layoutY="562.0">
+               <image>
+                  <Image url="@../images/instrucotr.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="btnPayment" fitHeight="44.0" fitWidth="44.0" layoutX="21.0" layoutY="659.0">
+               <image>
+                  <Image url="@../images/payment.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="btnScheduleManagement" fitHeight="44.0" fitWidth="51.0" layoutX="19.0" layoutY="469.0">
+               <image>
+                  <Image url="@../images/schedle.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="ANCMain" layoutX="83.0" layoutY="-1.0" prefHeight="1080.0" prefWidth="1838.0" />
+   </children>
+</AnchorPane>

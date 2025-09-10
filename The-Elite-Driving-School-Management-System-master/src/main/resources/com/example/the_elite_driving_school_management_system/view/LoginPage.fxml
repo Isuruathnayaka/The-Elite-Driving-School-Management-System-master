@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #2c3e50;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.the_elite_driving_school_management_system.Controller.LoginPageController">
+   <children>
+      <AnchorPane fx:id="ANCSignIn" layoutX="-78.0" prefHeight="400.0" prefWidth="484.0" style="-fx-background-color: #fff; -fx-border-radius: 50; -fx-background-radius: 50;">
+         <children>
+            <Label layoutX="222.0" layoutY="73.0" text="Sign in">
+               <font>
+                  <Font name="System Bold" size="31.0" />
+               </font>
+            </Label>
+            <TextField fx:id="signInUserName" layoutX="149.0" layoutY="159.0" prefHeight="25.0" prefWidth="265.0" promptText="user name-Isuru Rathnayaaka" style="-fx-background-color: #fff; -fx-border-color: #2c3e50; -fx-border-width: 0 0 1px 0;" />
+            <TextField fx:id="signInEmail" layoutX="149.0" layoutY="238.0" prefHeight="25.0" prefWidth="265.0" promptText="email-example@gmail.com" style="-fx-background-color: #fff; -fx-border-color: #2c3e50; -fx-border-width: 0 0 1px 0;" />
+            <PasswordField fx:id="signInPassword" layoutX="149.0" layoutY="200.0" prefHeight="25.0" prefWidth="265.0" promptText="******************" style="-fx-background-color: #fff; -fx-border-color: #2c3e50; -fx-border-width: 0 0 1px 0;" />
+            <Button layoutX="210.0" layoutY="320.0" mnemonicParsing="false" onAction="#btnSignIn" prefHeight="25.0" prefWidth="126.0" style="-fx-background-color: #2c3e50; -fx-background-radius: 40;" text="Sign in" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+            </Button>
+            <Label fx:id="SignUptxtButton" accessibleRole="BUTTON" blendMode="SRC_ATOP" layoutX="181.0" layoutY="282.0" text="If do not have an Account : Sign Up" textFill="#ff0b0b" />
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="ANCSignUp" layoutX="158.0" layoutY="2.0" prefHeight="400.0" prefWidth="444.0" style="-fx-background-color: #fff; -fx-border-radius: 50; -fx-background-radius: 50;" visible="false">
+         <children>
+            <AnchorPane layoutX="399.0" prefHeight="400.0" prefWidth="46.0" style="-fx-background-color: #fff;" />
+            <Label layoutX="177.0" layoutY="76.0" text="Sign Up">
+               <font>
+                  <Font name="System Bold" size="31.0" />
+               </font>
+            </Label>
+            <TextField fx:id="signUpSectionUserName" layoutX="102.0" layoutY="161.0" prefHeight="25.0" prefWidth="265.0" promptText="user name-Isuru Rathnayaaka" style="-fx-background-color: #fff; -fx-border-color: #2c3e50; -fx-border-width: 0 0 1px 0;" />
+            <TextField fx:id="signUpsecssionEmail" layoutX="102.0" layoutY="240.0" prefHeight="25.0" prefWidth="265.0" promptText="email-example@gmail.com" style="-fx-background-color: #fff; -fx-border-color: #2c3e50; -fx-border-width: 0 0 1px 0;" />
+            <PasswordField fx:id="signUpSecssionPassword" layoutX="102.0" layoutY="202.0" prefHeight="25.0" prefWidth="265.0" promptText="******************" style="-fx-background-color: #fff; -fx-border-color: #2c3e50; -fx-border-width: 0 0 1px 0;" />
+            <Button layoutX="172.0" layoutY="317.0" mnemonicParsing="false" onAction="#btnSignUp" prefHeight="25.0" prefWidth="126.0" style="-fx-background-color: #2c3e50; -fx-background-radius: 50;" text="Sign Up" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+            </Button>
+            <Label fx:id="signInMessageButton" accessibleRole="BUTTON" blendMode="SRC_ATOP" layoutX="134.0" layoutY="280.0" prefHeight="17.0" prefWidth="201.0" text="If Already Have an Account :Sign In" textFill="#ff0b0b" />
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

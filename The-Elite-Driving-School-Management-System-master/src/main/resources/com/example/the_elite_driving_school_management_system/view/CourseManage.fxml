@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="543.0" prefWidth="1354.0" style="-fx-background-color: #6654b3;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.the_elite_driving_school_management_system.Controller.CourseManageController">
+   <children>
+      <AnchorPane fx:id="ANCCourse" layoutX="10.0" layoutY="10.0" prefHeight="523.0" prefWidth="1336.0" style="-fx-background-color: #fff; -fx-border-radius: 40; -fx-background-radius: 20;">
+         <children>
+            <TableView fx:id="table" layoutX="6.0" layoutY="129.0" prefHeight="166.0" prefWidth="1325.0">
+              <columns>
+                <TableColumn fx:id="colCourseID" prefWidth="63.0" text="Course Id" />
+                <TableColumn fx:id="colCourseName" prefWidth="401.0" text="Course Name" />
+                  <TableColumn fx:id="colCourseDuration" prefWidth="176.0" text="Duration" />
+                  <TableColumn fx:id="colFee" prefWidth="220.0" text="Fee" />
+                  <TableColumn fx:id="colDescription" prefWidth="464.0" text="Description" />
+              </columns>
+            </TableView>
+            <Label layoutX="29.0" layoutY="29.0" text="Courses">
+               <font>
+                  <Font name="System Bold" size="23.0" />
+               </font>
+            </Label>
+            <Line endX="1232.0" endY="-7.0" layoutX="105.0" layoutY="81.0" opacity="0.15" startX="-115.0" startY="-7.0" />
+            <Button fx:id="btnSaveCourse" layoutX="1194.0" layoutY="85.0" mnemonicParsing="false" onAction="#btnsaveACourse" prefHeight="25.0" prefWidth="123.0" style="-fx-background-color: #6654b3; -fx-background-radius: 30;" text=" +     Add a course" textFill="WHITE" />
+            <AnchorPane fx:id="addCourseANC" layoutX="5.0" layoutY="164.0" prefHeight="359.0" prefWidth="1338.0" style="-fx-background-color: #fff; -fx-background-radius: 20;" visible="false">
+               <children>
+                  <Label layoutX="24.0" layoutY="18.0" text="Course Id">
+                     <font>
+                        <Font name="System Bold" size="11.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="txtCourseID" layoutX="78.0" layoutY="18.0">
+                     <font>
+                        <Font name="System Bold" size="11.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="txtName" layoutX="70.0" layoutY="44.0" prefHeight="26.0" prefWidth="1106.0" promptText="Course Name" style="-fx-background-color: #fff; -fx-border-color: #6654b3; -fx-border-width: 0 0 1px 0;" />
+                  <TextField fx:id="txtDuration" layoutX="69.0" layoutY="83.0" prefHeight="26.0" prefWidth="558.0" promptText="Duration" style="-fx-background-color: #fff; -fx-border-color: #6654b3; -fx-border-width: 0 0 1px 0;" />
+                  <TextField fx:id="txtFee" layoutX="894.0" layoutY="83.0" prefHeight="26.0" prefWidth="287.0" promptText="Fee" style="-fx-background-color: #fff; -fx-border-color: #6654b3; -fx-border-width: 0 0 1px 0;" />
+                  <TextField fx:id="txtDescription" layoutX="68.0" layoutY="127.0" prefHeight="26.0" prefWidth="1113.0" promptText="Description" style="-fx-background-color: #fff; -fx-border-color: #6654b3; -fx-border-width: 0 0 1px 0;" />
+                  <Button layoutX="217.0" layoutY="167.0" mnemonicParsing="false" onAction="#btnsave" prefHeight="25.0" prefWidth="124.0" style="-fx-background-color: #6654b3; -fx-background-radius: 30;" text="Add" textFill="WHITE" />
+                  <Button layoutX="386.0" layoutY="167.0" mnemonicParsing="false" onAction="#btnUpdate" prefHeight="25.0" prefWidth="124.0" style="-fx-background-color: #6654b3; -fx-background-radius: 30;" text="Update" textFill="WHITE" />
+               </children>
+            </AnchorPane>
+            <TextField layoutX="338.0" layoutY="33.0" prefHeight="25.0" prefWidth="508.0" promptText="                       Search Course" style="-fx-background-color: #fff; -fx-border-color: #6654b3; -fx-border-width: 0 0 1px 0;" />
+            <ImageView fitHeight="26.0" fitWidth="25.0" layoutX="380.0" layoutY="33.0">
+               <image>
+                  <Image url="@../images/search.png" />
+               </image>
+            </ImageView>
+            <Button fx:id="btnEditeCourse" layoutX="1194.0" layoutY="85.0" mnemonicParsing="false" onAction="#btnEditCourse" prefHeight="25.0" prefWidth="123.0" style="-fx-background-color: #6654b3; -fx-background-radius: 30;" text=" +     Edit Course " textFill="WHITE" visible="false" />
+            <Button fx:id="btnDelete" layoutX="1055.0" layoutY="85.0" mnemonicParsing="false" onAction="#btnDelete" prefHeight="25.0" prefWidth="123.0" style="-fx-background-color: #6654b3; -fx-background-radius: 30;" text="-     Delete Course " textFill="WHITE" visible="false" />
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
