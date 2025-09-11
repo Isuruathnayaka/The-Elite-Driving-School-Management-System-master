@@ -37,6 +37,9 @@ public class LessonScheduleController implements Initializable {
     public ComboBox txtStatus;
     public Button btnEditeLesson;
     public Button btnDelete;
+    public AnchorPane ANCValidationView;
+    public TextField txtStudentIdValidate;
+    public Button btnCheckValidation;
 
     public void btnSheduleBtn(ActionEvent actionEvent) {
         addCourseANC.setVisible(true);
@@ -58,6 +61,18 @@ public class LessonScheduleController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        ANCValidationView.setVisible(true);
 
+    }
+
+    public void btnCheckValidation(ActionEvent actionEvent) {
+
+        String studentValidateID = txtStudentIdValidate.getText();
+        if(studentValidateID.matches("^S\\d{3}$")) {
+            ANCValidationView.setVisible(false);
+
+        } else {
+            new Alert(Alert.AlertType.ERROR, "Invalid Input OR Student Not Pay for the Course").show();
+        }
     }
 }

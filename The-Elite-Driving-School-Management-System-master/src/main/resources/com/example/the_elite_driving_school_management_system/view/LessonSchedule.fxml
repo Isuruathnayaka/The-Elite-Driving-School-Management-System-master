@@ -73,6 +73,12 @@
                 </ImageView>
                 <Button fx:id="btnEditeLesson" layoutX="1194.0" layoutY="85.0" mnemonicParsing="false" onAction="#btnEditLesson" prefHeight="25.0" prefWidth="123.0" style="-fx-background-color: #6654b3; -fx-background-radius: 30;" text=" +     Edit Course " textFill="WHITE" visible="false" />
                 <Button fx:id="btnDelete" layoutX="1055.0" layoutY="85.0" mnemonicParsing="false" onAction="#btnDelete" prefHeight="25.0" prefWidth="123.0" style="-fx-background-color: #6654b3; -fx-background-radius: 30;" text="-     Delete Shedule " textFill="WHITE" visible="false" />
+            <AnchorPane fx:id="ANCValidationView" layoutX="4.0" layoutY="14.0" prefHeight="523.0" prefWidth="1336.0" style="-fx-background-color: #fff; -fx-border-radius: 40; -fx-background-radius: 20;">
+               <children>
+                  <TextField fx:id="txtStudentIdValidate" layoutX="539.0" layoutY="197.0" prefHeight="25.0" prefWidth="287.0" promptText="Student_ID" />
+                  <Button layoutX="636.0" layoutY="249.0" mnemonicParsing="false" onAction="#btnCheckValidation" prefHeight="25.0" prefWidth="93.0" text="Check" />
+               </children>
+            </AnchorPane>
             </children>
         </AnchorPane>
     </children>

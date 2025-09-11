@@ -2,7 +2,6 @@ package com.example.the_elite_driving_school_management_system.Controller;
 
 import com.example.the_elite_driving_school_management_system.Bo.BOFactory;
 import com.example.the_elite_driving_school_management_system.Bo.Custom.CourseBo;
-import com.example.the_elite_driving_school_management_system.Bo.Custom.StudentBo;
 import com.example.the_elite_driving_school_management_system.DTO.CourseDTO;
 import com.example.the_elite_driving_school_management_system.TM.CourseTM;
 import javafx.collections.FXCollections;
@@ -204,8 +203,6 @@ private void setupTableColumns(){
              new Alert(Alert.AlertType.ERROR, "Failed to delete Course", ButtonType.OK).show();
          }
      }
-
-
     }
 
     public void btnUpdate(ActionEvent actionEvent) {
@@ -218,12 +215,10 @@ private void setupTableColumns(){
                 txtCourseID.setText(generateNewId());
                 addCourseANC.setVisible(false);
                 clear();
-            }
-            else {
+            } else {
                 new Alert(Alert.AlertType.ERROR, "Error", ButtonType.OK).show();
             }
         }
-
     }
 }
 
