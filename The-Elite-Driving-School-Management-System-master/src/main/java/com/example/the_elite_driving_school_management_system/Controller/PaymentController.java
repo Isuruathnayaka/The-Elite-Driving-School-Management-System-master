@@ -11,6 +11,7 @@ import javafx.scene.layout.AnchorPane;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.regex.Pattern;
 
 public class PaymentController implements Initializable {
     public TableColumn colPaymentId;
@@ -29,6 +30,8 @@ public class PaymentController implements Initializable {
     public TextField txtPayment;
     public ComboBox statusComBox;
     private final PaymentBo paymentBo=(PaymentBo) BOFactory.getInstance().getBO(BOFactory.BOType.PAYMENT);
+    private final String studentId="^S\\d{3}$\n";
+    private final String courseId="^C\\d{3}$\n";
 
     public void btnAddPayment(ActionEvent actionEvent) {
         ANCAddPaymentPart.setVisible(true);
@@ -51,6 +54,7 @@ public class PaymentController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         ANCAddPaymentPart.setVisible(true);
         statusComBox.getItems().addAll("Advance Paid", "Full Paid");
+        txtPaymentId.setText(generateNewId());
 
     }
     private String generateNewId() {
@@ -67,7 +71,14 @@ public class PaymentController implements Initializable {
         String studentId = txtStudentId.getText();
         String courseId = txtCourseId.getText();
         Long payment = Long.valueOf(txtPayment.getText());
+        String status= (String) statusComBox.getValue();
 
-        return null;
+        boolean isValidStudentId = studentId.matches(studentId);
+        boolean isValidCourseId = courseId.matches(courseId);
+        if (isValidStudentId && isValidCourseId){
+            return new PaymentDTO(id, studentId, courseId, payment, status);
+        }
+
+        return new PaymentDTO(id,studentId,courseId,payment,status);
     }
 }

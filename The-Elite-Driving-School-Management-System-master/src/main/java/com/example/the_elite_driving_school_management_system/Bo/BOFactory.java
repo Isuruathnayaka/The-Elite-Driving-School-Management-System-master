@@ -3,7 +3,8 @@ package com.example.the_elite_driving_school_management_system.Bo;
 import com.example.the_elite_driving_school_management_system.Bo.Custom.Impl.*;
 import com.example.the_elite_driving_school_management_system.DAO.Custom.*;
 import com.example.the_elite_driving_school_management_system.DAO.DAOFactory;
-import com.example.the_elite_driving_school_management_system.DTO.CourseDTO;
+import com.example.the_elite_driving_school_management_system.Bo.SuperBO;
+
 
 public class BOFactory {
     private static BOFactory boFactory;
@@ -46,6 +47,7 @@ public class BOFactory {
                         case PAYMENT:
                             PaymentDAO paymentDAO=(PaymentDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOType.PAYMENT);
                             return new PaymentBoImpl(paymentDAO);
+
 
 
             default:

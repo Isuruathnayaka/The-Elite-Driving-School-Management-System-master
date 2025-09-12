@@ -19,7 +19,7 @@ public class Payment {
     private String status;
 
     // Each payment belongs to ONE student
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "student_id", nullable = false) // foreign key column
     private Student student;
 
