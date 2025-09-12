@@ -10,9 +10,13 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class CourseDAOImpl implements CourseDAO {
     private final FactoryConfiguration factoryConfiguration =
             FactoryConfiguration.getInstance();
+
     @Override
     public boolean save(Course dto) {
         Session session = factoryConfiguration.getSession();
@@ -101,6 +105,7 @@ public class CourseDAOImpl implements CourseDAO {
             session.close();
         }
     }
+
     @Override
     public CourseDTO findByName(String courseName) {
         try (Session session = factoryConfiguration.getSession()) {
@@ -117,6 +122,30 @@ public class CourseDAOImpl implements CourseDAO {
             e.printStackTrace();
             return null;
         }
+    }
+
+    @Override
+    public List<String> getCourseFeeByCourseId(String courseId) {
+        Session session = factoryConfiguration.getSession();
+        Transaction tx = null;
+        List<String> courseFeeList = new ArrayList<>();
+
+        try {
+            tx = session.beginTransaction();
+            Course course = session.get(Course.class, courseId);
+
+            if (course != null && course.getFee() != null) {
+                courseFeeList.add(String.valueOf(course.getFee())); // Convert Double -> String
+            }
+
+            tx.commit();
+        } catch (Exception e) {
+            if (tx != null) tx.rollback();
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return courseFeeList;
     }
 
 }

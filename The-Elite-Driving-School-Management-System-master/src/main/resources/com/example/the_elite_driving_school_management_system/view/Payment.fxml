@@ -8,7 +8,6 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane prefHeight="543.0" prefWidth="1354.0" style="-fx-background-color: #6654b3;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.the_elite_driving_school_management_system.Controller.PaymentController">
    <children>
       <AnchorPane layoutX="9.0" layoutY="10.0" prefHeight="525.0" prefWidth="1335.0" style="-fx-background-color: #fff; -fx-background-radius: 20;">
@@ -43,11 +42,11 @@
          <children>
             <TextField fx:id="txtPaymentId" editable="false" layoutX="88.0" layoutY="54.0" prefHeight="26.0" prefWidth="686.0" promptText="Payment Id" style="-fx-background-color: #fff; -fx-border-color: #2c3e50; -fx-border-width: 0 0 1px 0;" />
             <TextField fx:id="txtStudentId" layoutX="88.0" layoutY="93.0" prefHeight="26.0" prefWidth="686.0" promptText="Student_Id" style="-fx-background-color: #fff; -fx-border-color: #2c3e50; -fx-border-width: 0 0 1px 0;" />
-            <TextField fx:id="txtCourseId" layoutX="88.0" layoutY="135.0" prefHeight="26.0" prefWidth="686.0" promptText="Course_Id(s)" style="-fx-background-color: #fff; -fx-border-color: #2c3e50; -fx-border-width: 0 0 1px 0;" />
             <TextField fx:id="txtPayment" layoutX="88.0" layoutY="183.0" prefHeight="26.0" prefWidth="686.0" promptText="Payment" style="-fx-background-color: #fff; -fx-border-color: #2c3e50; -fx-border-width: 0 0 1px 0;" />
             <ComboBox fx:id="statusComBox" layoutX="88.0" layoutY="231.0" prefHeight="26.0" prefWidth="686.0" promptText="Status" style="-fx-background-color: #fff; -fx-border-color: #2c3e50; -fx-border-width: 0 0 1px 0;" />
             <Button layoutX="297.0" layoutY="292.0" mnemonicParsing="false" onAction="#btnSave" prefHeight="25.0" prefWidth="134.0" text="Submit" />
             <Button layoutX="498.0" layoutY="292.0" mnemonicParsing="false" onAction="#btnCancle" prefHeight="25.0" prefWidth="134.0" text="Cancle" />
+            <ComboBox fx:id="cmbCourses" layoutX="88.0" layoutY="146.0" prefHeight="26.0" prefWidth="686.0" promptText="CourseId" style="-fx-background-color: #fff; -fx-border-color: #2c3e50; -fx-border-width: 0 0 1px 0;" />
          </children>
       </AnchorPane>
    </children>

@@ -12,6 +12,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class StudentBoImpl implements StudentBo {
@@ -94,5 +95,10 @@ public class StudentBoImpl implements StudentBo {
     @Override
     public boolean delete(String studentId) {
         return studentDAO.delete(studentId);
+    }
+
+    @Override
+    public List<String> getCourseIdsByStudent(String studentId) {
+        return studentDAO.getCourseIdsByStudentId(studentId);
     }
 }

@@ -4,6 +4,7 @@ import com.example.the_elite_driving_school_management_system.Config.FactoryConf
 import com.example.the_elite_driving_school_management_system.DAO.Custom.StudentDAO;
 import com.example.the_elite_driving_school_management_system.DTO.InstructorDTO;
 import com.example.the_elite_driving_school_management_system.DTO.StudentDTO;
+import com.example.the_elite_driving_school_management_system.Entity.Course;
 import com.example.the_elite_driving_school_management_system.Entity.Student;
 
 import org.hibernate.Session;
@@ -121,4 +122,30 @@ public class StudentDAOImpl implements StudentDAO {
             session.close();
         }
     }
+
+    @Override
+    public List<String> getCourseIdsByStudentId(String studentId) {
+        Session session = factoryConfiguration.getSession();
+        Transaction tx = null;
+        List<String> courseIds = new ArrayList<>();
+
+        try{
+            tx = session.beginTransaction();
+            Student student = session.get(Student.class, studentId);
+            if (student != null) {
+                courseIds=student.getCourses()
+                        .stream()
+                        .map(Course::getId)
+                        .toList();
+            }
+            tx.commit();
+        } catch (Exception e) {
+            if (tx != null) tx.rollback();
+            throw new RuntimeException(e);
+        }finally {
+            session.close();
+        }
+        return courseIds;
+    }
+
 }

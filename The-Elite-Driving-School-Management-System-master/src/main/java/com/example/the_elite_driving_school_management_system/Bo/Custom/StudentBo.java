@@ -6,6 +6,7 @@ import com.example.the_elite_driving_school_management_system.DTO.StudentDTO;
 import com.example.the_elite_driving_school_management_system.Entity.Student;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public interface StudentBo extends CrudBo<StudentDTO> {
 
@@ -18,4 +19,5 @@ public interface StudentBo extends CrudBo<StudentDTO> {
 
 
     boolean delete(String studentId);
+    List<String> getCourseIdsByStudent(String studentId);
 }

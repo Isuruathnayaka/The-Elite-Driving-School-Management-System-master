@@ -7,6 +7,8 @@ import com.example.the_elite_driving_school_management_system.DAO.Custom.CourseD
 import com.example.the_elite_driving_school_management_system.DTO.CourseDTO;
 import com.example.the_elite_driving_school_management_system.Entity.Course;
 
+import jakarta.transaction.SystemException;
+import jakarta.transaction.Transaction;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
@@ -66,6 +68,28 @@ public class CourseBoImpl implements CourseBo {
     @Override
     public CourseDTO findByName(String courseName) {
         return courseDAO.findByName(courseName);
+    }
+
+    @Override
+    public String getCourseFeeByCourseId(String courseId) throws SystemException {
+        Session session = factoryConfiguration.getSession();
+        Transaction tx = null;
+        String feeStr = null;
+
+        try {
+            tx = (Transaction) session.beginTransaction();
+            Course course = session.get(Course.class, courseId);
+            if (course != null && course.getFee() != null) {
+                feeStr = String.valueOf(course.getFee()); // Convert Double → String
+            }
+            tx.commit();
+        } catch (Exception e) {
+            if (tx != null) tx.rollback();
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return feeStr;
     }
 
 
