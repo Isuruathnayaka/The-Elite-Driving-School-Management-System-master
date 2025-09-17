@@ -7,6 +7,9 @@ import com.example.the_elite_driving_school_management_system.Entity.Payment;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class PaymentDAOImpl implements PaymentDAO {
     private static FactoryConfiguration factoryConfiguration=FactoryConfiguration.getInstance();
 
@@ -27,7 +30,21 @@ public class PaymentDAOImpl implements PaymentDAO {
 
     @Override
     public boolean update(Payment dto) {
-        return false;
+        Session session = factoryConfiguration.getSession();
+        Transaction tx=session.beginTransaction();
+        try {
+            session.merge(dto); // Use merge() for updates
+            tx.commit();
+            return true;
+        } catch (Exception e) {
+            if (tx != null) {
+                tx.rollback();
+            }
+            e.printStackTrace();
+            return false;
+        } finally {
+            session.close();
+        }
     }
 
     @Override
@@ -53,6 +70,14 @@ public class PaymentDAOImpl implements PaymentDAO {
         } catch (Exception e) {
             e.printStackTrace();
             return "P001"; // fallback to first ID if query fails
+        }
+    }
+
+    @Override
+    public ArrayList<Payment> getAll() {
+       try (Session session = factoryConfiguration.getSession()) {
+            List<Payment> payments = session.createQuery("FROM Payment", Payment.class).list();
+            return new ArrayList<>(payments);
         }
     }
 }

@@ -11,7 +11,9 @@ import com.example.the_elite_driving_school_management_system.Entity.Student;
 import com.example.the_elite_driving_school_management_system.Entity.Payment;
 import com.example.the_elite_driving_school_management_system.Bo.Custom.StudentBo;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class PaymentBoImpl implements PaymentBo, SuperBO {
 
@@ -43,8 +45,8 @@ public class PaymentBoImpl implements PaymentBo, SuperBO {
 
     @Override
     public boolean update(PaymentDTO dto) {
-        // Implement update logic if needed
-        return false;
+        // Implement update logic if neede
+        return paymentDAO.update(MapUtil.toEntity(dto));
     }
 
     @Override
@@ -73,5 +75,13 @@ public class PaymentBoImpl implements PaymentBo, SuperBO {
                     .toList();
         }
         return List.of();
+    }
+
+    @Override
+    public ArrayList<PaymentDTO> getAllPayments() {
+        ArrayList<Payment> payments = paymentDAO.getAll();
+        return payments.stream()
+                .map(MapUtil::toDTO)
+                .collect(Collectors.toCollection(ArrayList::new));
     }
 }

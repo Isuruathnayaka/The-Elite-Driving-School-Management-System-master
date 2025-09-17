@@ -146,5 +146,15 @@ public class MapUtil {
     }
 
 
+    public static Payment toEntity(PaymentDTO dto) {
+        if (dto == null) return null;
 
+        return new Payment(
+                dto.getPaymentID(),
+                dto.getStudentId(),                 // needs Student entity
+                dto.getCourseID(),
+                dto.getPayment(),
+                dto.getStatus()
+        );
+    }
 }

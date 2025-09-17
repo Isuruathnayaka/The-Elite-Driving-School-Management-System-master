@@ -4,6 +4,7 @@ import com.example.the_elite_driving_school_management_system.DAO.CrudDAO;
 import com.example.the_elite_driving_school_management_system.DTO.PaymentDTO;
 import com.example.the_elite_driving_school_management_system.Entity.Student;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public interface PaymentBo extends CrudDAO<PaymentDTO> {
@@ -14,4 +15,6 @@ public interface PaymentBo extends CrudDAO<PaymentDTO> {
    Student findById(String studentId);
 
    List<String> getCourseIdsByStudent(String studentId);
+
+    ArrayList<PaymentDTO> getAllPayments();
 }

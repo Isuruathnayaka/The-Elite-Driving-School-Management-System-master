@@ -5,14 +5,19 @@ import com.example.the_elite_driving_school_management_system.Bo.Custom.CourseBo
 import com.example.the_elite_driving_school_management_system.Bo.Custom.PaymentBo;
 import com.example.the_elite_driving_school_management_system.Bo.Custom.StudentBo;
 import com.example.the_elite_driving_school_management_system.DTO.PaymentDTO;
+import com.example.the_elite_driving_school_management_system.TM.PaymentTM;
 import jakarta.transaction.SystemException;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -50,10 +55,36 @@ public class PaymentController implements Initializable {
     }
 
     public void btnUpdatePayment(ActionEvent actionEvent) {
+        ANCAddPaymentPart.setVisible(true);
     }
 
     public void btnDeletePayment(ActionEvent actionEvent) {
+        ANCAddPaymentPart.setVisible(false);
+        PaymentTM selectedPayment=(PaymentTM) cmbCourses.getSelectionModel().getSelectedItem();
+
+
+
     }
+    private void loadTableData() {
+        ArrayList<PaymentDTO> allPayments = paymentBo.getAllPayments();
+        ObservableList<PaymentTM> tableList = FXCollections.observableArrayList();
+
+        if (allPayments != null) {
+            for (PaymentDTO paymentDTO : allPayments) {
+                PaymentTM tm = new PaymentTM(
+                        paymentDTO.getPaymentId(),
+                        paymentDTO.getStudentId(),
+                        paymentDTO.getCourseID(),
+                        paymentDTO.getPayment(),
+                        paymentDTO.getStatus()
+                );
+                tableList.add(tm);
+            }
+        }
+
+        table.setItems(tableList);
+    }
+
 
     public void btnSave(ActionEvent actionEvent) {
        PaymentDTO paymentDTO= checkMatch();
@@ -76,6 +107,7 @@ public class PaymentController implements Initializable {
 
 
     public void btnCancle(ActionEvent actionEvent) {
+        ANCAddPaymentPart.setVisible(false);
     }
     public void clear(){
         txtPaymentId.setText(generateNewId());
@@ -89,7 +121,9 @@ public class PaymentController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        ANCAddPaymentPart.setVisible(true);
+        ANCAddPaymentPart.setVisible(false);
+        setupColumns();
+        loadTableData();
         statusComBox.getItems().addAll("Advance Paid", "Full Paid");
         txtPaymentId.setText(generateNewId());
         txtStudentId.setOnAction(actionEvent -> {
@@ -99,6 +133,15 @@ public class PaymentController implements Initializable {
                 throw new RuntimeException(e);
             }
         });
+        table.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+           if (newValue != null) {
+               btnUpdatePayment.setVisible(true);
+               btnDeletePayment.setVisible(true);
+               setDataToFields((PaymentTM) newValue);
+
+           }
+        });
+
 
     }
     private String generateNewId() {
@@ -162,6 +205,19 @@ public class PaymentController implements Initializable {
         } else {
             new Alert(Alert.AlertType.ERROR, "No courses found for student: " + studentId).show();
         }
+    }
+    private void setupColumns(){
+        colPaymentId.setCellValueFactory(new PropertyValueFactory<>("paymentId"));
+        colStudentID.setCellValueFactory(new PropertyValueFactory<>("studentId"));
+        colCourseId.setCellValueFactory(new PropertyValueFactory<>("courseId"));
+        colPayment.setCellValueFactory(new PropertyValueFactory<>("payment"));
+        colStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
+    }
+    private void setDataToFields(PaymentTM payment){
+        txtPaymentId.setText(payment.getPaymentId());
+        txtStudentId.setText(payment.getStudentId());
+        cmbCourses.setValue(payment.getCourseId());
+        statusComBox.setValue(payment.getStatus());
     }
 
 

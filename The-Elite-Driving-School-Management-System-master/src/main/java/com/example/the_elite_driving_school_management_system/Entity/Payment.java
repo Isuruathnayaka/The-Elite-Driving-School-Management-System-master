@@ -34,6 +34,15 @@ public class Payment {
         this.status = status;
     }
 
+    public Payment(String paymentID, String studentId, String courseID, Long payment, String status) {
+        this.paymentId = paymentID;
+        this.student = new Student();
+        this.courseId = courseID;
+        this.payment = payment;
+        this.status = status;
+
+    }
+
     // Getters and Setters
     public String getPaymentId() { return paymentId; }
     public void setPaymentId(String paymentId) { this.paymentId = paymentId; }
