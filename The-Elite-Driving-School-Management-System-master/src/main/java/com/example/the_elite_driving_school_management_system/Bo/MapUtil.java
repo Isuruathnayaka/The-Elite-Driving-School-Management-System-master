@@ -1,13 +1,7 @@
 package com.example.the_elite_driving_school_management_system.Bo;
 
-import com.example.the_elite_driving_school_management_system.DTO.CourseDTO;
-import com.example.the_elite_driving_school_management_system.DTO.InstructorDTO;
-import com.example.the_elite_driving_school_management_system.DTO.LoginDTO;
-import com.example.the_elite_driving_school_management_system.DTO.StudentDTO;
-import com.example.the_elite_driving_school_management_system.Entity.Course;
-import com.example.the_elite_driving_school_management_system.Entity.Instructor;
-import com.example.the_elite_driving_school_management_system.Entity.Login;
-import com.example.the_elite_driving_school_management_system.Entity.Student;
+import com.example.the_elite_driving_school_management_system.DTO.*;
+import com.example.the_elite_driving_school_management_system.Entity.*;
 import org.hibernate.Session;
 
 import java.util.ArrayList;
@@ -26,7 +20,7 @@ public class MapUtil {
 
     // ==================== Student ====================
     public static Student toEntity(StudentDTO dto, Session session) {
-        // Create Student entity
+
         Student student = new Student(
                 dto.getStudentID(),
                 dto.getName(),
@@ -38,18 +32,18 @@ public class MapUtil {
                 dto.getCourseType()
         );
 
-        // Convert course IDs to Course entities
+
         List<Course> courses = new ArrayList<>();
         if (dto.getCourseId() != null) {
             for (String courseId : dto.getCourseId()) {
-                Course course = session.get(Course.class, courseId); // fetch managed entity from DB
+                Course course = session.get(Course.class, courseId);
                 if (course != null) {
                     courses.add(course);
                 }
             }
         }
 
-        student.setCourses(courses); // ✅ set the courses list
+        student.setCourses(courses);
 
         return student;
     }
@@ -72,7 +66,7 @@ public class MapUtil {
                 entity.getEmail(),
                 entity.getRegistrationDate(),
                 entity.getCourseType(),
-                courseId    // pass the list of course IDs
+                courseId
         );
     }
 
@@ -86,7 +80,7 @@ public class MapUtil {
                 dto.getAddress(),
                 dto.getContact(),
                 dto.getEmail(),
-                dto.getDate(),        // LocalDate (or Date if your entity uses Date)
+                dto.getDate(),
                 dto.getCourse()
                // dto.getCourseId()
         );
@@ -126,5 +120,31 @@ public class MapUtil {
                 course.getDescription()
         );
     }
+
+    public static Payment toEntity(PaymentDTO dto, Student student) {
+        if (dto == null) return null;
+
+        return new Payment(
+                dto.getPaymentID(),
+                student,                 // needs Student entity
+                dto.getCourseID(),
+                dto.getPayment(),
+                dto.getStatus()
+        );
+    }
+
+    public static PaymentDTO toDTO(Payment entity) {
+        if (entity == null) return null;
+
+        return new PaymentDTO(
+                entity.getPaymentID(),
+                entity.getStudent().getStudentID(),   // convert Student object → studentId
+                entity.getCourseID(),
+                entity.getPayment(),
+                entity.getStatus()
+        );
+    }
+
+
 
 }

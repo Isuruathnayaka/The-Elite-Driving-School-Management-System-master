@@ -31,13 +31,18 @@ public class PaymentController implements Initializable {
     public AnchorPane ANCAddPaymentPart;
     public TextField txtPaymentId;
     public TextField txtStudentId;
-    @FXML
-    public TextField txtCourseId;
+
+
     public TextField txtPayment;
     public ComboBox statusComBox;
     private final PaymentBo paymentBo=(PaymentBo) BOFactory.getInstance().getBO(BOFactory.BOType.PAYMENT);
     private final String studentId="^S\\d{3}$\n";
     private final String courseId="^C\\d{3}$\n";
+    // Remove the \n !!!
+    private final String studentIdPattern = "^S\\d{3}$";      // S001, S123
+    private final String courseIdPattern = "^C\\d{3,4}$";     // C001, C123, C1001
+
+
     public ComboBox cmbCourses;
 
     public void btnAddPayment(ActionEvent actionEvent) {
@@ -51,26 +56,57 @@ public class PaymentController implements Initializable {
     }
 
     public void btnSave(ActionEvent actionEvent) {
-        PaymentDTO paymentDTO=checkMatch();
-        if(paymentDTO!=null){
-            boolean isSaved=paymentBo.save(paymentDTO);
-            clear();
-            if(isSaved){
-                new Alert(Alert.AlertType.INFORMATION,"Payment Saved").show();
+        String id = txtPaymentId.getText().trim();
+        String studentIdText = txtStudentId.getText().trim();
+        String courseIdText = (String) cmbCourses.getValue();
+        String status = (String) statusComBox.getValue();
 
-            }
-            else{
-                new Alert(Alert.AlertType.ERROR,"Payment Not Saved").show();
-            }
+        // Validate Student ID
+        if (!studentIdText.matches(studentIdPattern)) {
+            new Alert(Alert.AlertType.ERROR, "Invalid Student ID").show();
+            return;
+        }
+
+        // Validate Course ID
+        if (courseIdText == null || !courseIdText.matches(courseIdPattern)) {
+            new Alert(Alert.AlertType.ERROR, "Invalid Course ID").show();
+            return;
+        }
+
+        // Validate payment
+        Long paymentAmount;
+        try {
+            paymentAmount = Long.parseLong(txtPayment.getText().trim());
+        } catch (NumberFormatException e) {
+            new Alert(Alert.AlertType.ERROR, "Invalid payment amount").show();
+            return;
+        }
+
+        // Validate status
+        if (status == null || status.isEmpty()) {
+            new Alert(Alert.AlertType.ERROR, "Please select payment status").show();
+            return;
+        }
+
+        // Create DTO and save
+        PaymentDTO paymentDTO = new PaymentDTO(id, studentIdText, courseIdText, paymentAmount, status);
+        boolean isSaved = paymentBo.save(paymentDTO);
+
+        if (isSaved) {
+            new Alert(Alert.AlertType.INFORMATION, "Payment Saved Successfully").show();
+            clear();
+        } else {
+            new Alert(Alert.AlertType.ERROR, "Failed to save payment").show();
         }
     }
+
 
     public void btnCancle(ActionEvent actionEvent) {
     }
     public void clear(){
         txtPaymentId.setText(generateNewId());
         txtStudentId.clear();
-        txtCourseId.clear();
+        cmbCourses.setValue(null);
         txtPayment.clear();
         statusComBox.setValue(null);
 
@@ -100,26 +136,38 @@ public class PaymentController implements Initializable {
         }
         return "P001";
     }
-    public PaymentDTO checkMatch(){
+    public PaymentDTO checkMatch() {
         String id = txtPaymentId.getText();
-        String studentId = txtStudentId.getText();
-        String courseId = txtCourseId.getText();
-        Long payment = Long.valueOf(txtPayment.getText());
-        String status= (String) statusComBox.getValue();
+        String studentIdText = txtStudentId.getText();
+        String courseIdText = (String) cmbCourses.getValue();
+        String status = (String) statusComBox.getValue();
 
-        boolean isValidStudentId = studentId.matches(studentId);
-        boolean isValidCourseId = courseId.matches(courseId);
-        if (isValidStudentId && isValidCourseId){
-            return new PaymentDTO(id, studentId, courseId, payment, status);
+        // Validate payment amount
+        Long payment;
+        try {
+            payment = Long.valueOf(txtPayment.getText());
+        } catch (NumberFormatException e) {
+            new Alert(Alert.AlertType.ERROR, "Invalid payment amount").show();
+            return null;
         }
 
-        return null;
+        // ✅ Use the regex constants
+        boolean isValidStudentId = studentIdText.matches(studentIdPattern);
+        boolean isValidCourseId = courseIdText != null && courseIdText.matches(courseIdPattern);
+
+        if (isValidStudentId && isValidCourseId) {
+            return new PaymentDTO(id, studentIdText, courseIdText, payment, status);
+        } else {
+            new Alert(Alert.AlertType.ERROR, "Invalid Student ID or Course ID").show();
+            return null;
+        }
     }
+
+
     private void loadCourse() throws SystemException {
         String studentId = txtStudentId.getText().trim();
 
         StudentBo studentBo = (StudentBo) BOFactory.getInstance().getBO(BOFactory.BOType.STUDENT);
-        CourseBo courseBo = (CourseBo) BOFactory.getInstance().getBO(BOFactory.BOType.COURSE);
 
         List<String> courseIds = studentBo.getCourseIdsByStudent(studentId);
 
@@ -127,24 +175,23 @@ public class PaymentController implements Initializable {
         cmbCourses.getItems().addAll(courseIds);
 
         if (!courseIds.isEmpty()) {
-            // Select first course
-            String firstCourseId = courseIds.get(0);
-            cmbCourses.getSelectionModel().select(firstCourseId);
 
-            // Show in CourseId field
-            txtCourseId.setText(firstCourseId);
+            cmbCourses.getSelectionModel().selectFirst();
 
-            // 🔑 Get fee from Course table
-            String fee = courseBo.getCourseFeeByCourseId(firstCourseId);
-            if (fee != null) {
-                txtPayment.setText(fee);
-            } else {
-                txtPayment.clear();
-            }
+
+            cmbCourses.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
+                if (newVal != null) {
+                    System.out.println("Selected course: " + newVal);
+
+                }
+            });
         } else {
             new Alert(Alert.AlertType.ERROR, "No courses found for student: " + studentId).show();
         }
     }
+
+
+
 
 
 }

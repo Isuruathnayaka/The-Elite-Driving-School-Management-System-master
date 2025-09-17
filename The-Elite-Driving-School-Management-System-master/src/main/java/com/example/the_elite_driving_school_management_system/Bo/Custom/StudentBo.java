@@ -20,4 +20,6 @@ public interface StudentBo extends CrudBo<StudentDTO> {
 
     boolean delete(String studentId);
     List<String> getCourseIdsByStudent(String studentId);
+
+
 }

@@ -5,74 +5,56 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "payment")
 public class Payment {
+
     @Id
-    @Column(name = "payment_id", nullable = false, unique = true)
-    private String id;
+    @Column(name = "payment_id")
+    private String paymentId;
 
-    @Column(name = "course_id", nullable = false)
-    private String courseId;
-
-    @Column(name = "payment", nullable = false)
-    private Long paymentAmount;
-
-    @Column(name = "status", nullable = false)
-    private String status;
-
-    // Each payment belongs to ONE student
     @ManyToOne
-    @JoinColumn(name = "student_id", nullable = false) // foreign key column
+    @JoinColumn(name = "studentId", referencedColumnName = "studentId")
     private Student student;
 
-    // ---- Constructors ----
+    @Column(name = "course_id")
+    private String courseId;
+
+    @Column(name = "payment_amount")
+    private Long payment;
+
+    @Column(name = "status")
+    private String status;
+
     public Payment() {
     }
 
-    public Payment(String id, String courseId, Long paymentAmount, String status, Student student) {
-        this.id = id;
-        this.courseId = courseId;
-        this.paymentAmount = paymentAmount;
-        this.status = status;
+    public Payment(String paymentId, Student student, String courseId, Long payment, String status) {
+        this.paymentId = paymentId;
         this.student = student;
+        this.courseId = courseId;
+        this.payment = payment;
+        this.status = status;
     }
 
-    // ---- Getters & Setters ----
-    public String getId() {
-        return id;
+    // Getters and Setters
+    public String getPaymentId() { return paymentId; }
+    public void setPaymentId(String paymentId) { this.paymentId = paymentId; }
+
+    public Student getStudent() { return student; }
+    public void setStudent(Student student) { this.student = student; }
+
+    public String getCourseId() { return courseId; }
+    public void setCourseId(String courseId) { this.courseId = courseId; }
+
+    public Long getPayment() { return payment; }
+    public void setPayment(Long payment) { this.payment = payment; }
+
+    public String getStatus() { return status; }
+    public void setStatus(String status) { this.status = status; }
+
+    public String getPaymentID() {
+        return paymentId;
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getCourseId() {
+    public String getCourseID() {
         return courseId;
-    }
-
-    public void setCourseId(String courseId) {
-        this.courseId = courseId;
-    }
-
-    public Long getPaymentAmount() {
-        return paymentAmount;
-    }
-
-    public void setPaymentAmount(Long paymentAmount) {
-        this.paymentAmount = paymentAmount;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public Student getStudent() {
-        return student;
-    }
-
-    public void setStudent(Student student) {
-        this.student = student;
     }
 }
