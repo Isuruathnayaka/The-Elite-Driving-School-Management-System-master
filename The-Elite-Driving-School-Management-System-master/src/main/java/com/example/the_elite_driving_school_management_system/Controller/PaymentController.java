@@ -56,48 +56,22 @@ public class PaymentController implements Initializable {
     }
 
     public void btnSave(ActionEvent actionEvent) {
-        String id = txtPaymentId.getText().trim();
-        String studentIdText = txtStudentId.getText().trim();
-        String courseIdText = (String) cmbCourses.getValue();
-        String status = (String) statusComBox.getValue();
+       PaymentDTO paymentDTO= checkMatch();
+       if (paymentDTO != null) {
+           boolean isSaved=paymentBo.save(paymentDTO);
+           if (isSaved) {
+               new Alert(Alert.AlertType.INFORMATION, "Payment Saved").show();
+               clear();
 
-        // Validate Student ID
-        if (!studentIdText.matches(studentIdPattern)) {
-            new Alert(Alert.AlertType.ERROR, "Invalid Student ID").show();
-            return;
-        }
+           }
+           else {
+               new Alert(Alert.AlertType.ERROR, "Payment Not Saved").show();
+           }
 
-        // Validate Course ID
-        if (courseIdText == null || !courseIdText.matches(courseIdPattern)) {
-            new Alert(Alert.AlertType.ERROR, "Invalid Course ID").show();
-            return;
-        }
+       }else {
+           new Alert(Alert.AlertType.INFORMATION, "Invalid").show();
+       }
 
-        // Validate payment
-        Long paymentAmount;
-        try {
-            paymentAmount = Long.parseLong(txtPayment.getText().trim());
-        } catch (NumberFormatException e) {
-            new Alert(Alert.AlertType.ERROR, "Invalid payment amount").show();
-            return;
-        }
-
-        // Validate status
-        if (status == null || status.isEmpty()) {
-            new Alert(Alert.AlertType.ERROR, "Please select payment status").show();
-            return;
-        }
-
-        // Create DTO and save
-        PaymentDTO paymentDTO = new PaymentDTO(id, studentIdText, courseIdText, paymentAmount, status);
-        boolean isSaved = paymentBo.save(paymentDTO);
-
-        if (isSaved) {
-            new Alert(Alert.AlertType.INFORMATION, "Payment Saved Successfully").show();
-            clear();
-        } else {
-            new Alert(Alert.AlertType.ERROR, "Failed to save payment").show();
-        }
     }
 
 
@@ -129,7 +103,7 @@ public class PaymentController implements Initializable {
     }
     private String generateNewId() {
         try {
-            String id = String.valueOf(paymentBo.generateNewStudentId());
+            String id = String.valueOf(paymentBo.generateNewPaymentId());
             if (id != null) return id;
         } catch (Exception e) {
             e.printStackTrace();

@@ -17,7 +17,7 @@ public class Payment {
     @Column(name = "course_id")
     private String courseId;
 
-    @Column(name = "payment_amount")
+    @Column(name = "payment")
     private Long payment;
 
     @Column(name = "status")

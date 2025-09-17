@@ -33,15 +33,26 @@ public class PaymentDAOImpl implements PaymentDAO {
     @Override
     public String generateNewId() {
         try (Session session = factoryConfiguration.getSession()) {
-            String lastId = (String) session.createQuery("SELECT p.paymentId FROM Payment p ORDER BY p.paymentId DESC")
-                    .setMaxResults(1)
+            // Get the last studentId (ordered descending)
+            String lastId = session.createQuery(
+                            "SELECT p.id FROM Payment p ORDER BY p.id DESC", String.class
+                    )
+                    .setMaxResults(1)   // only take top 1
                     .uniqueResult();
+
             if (lastId != null) {
-                int num = Integer.parseInt(lastId.substring(1)) + 1;
-                return String.format("P%03d", num);
+                // Extract digits only
+                String numericPart = lastId.replaceAll("\\D", "");
+                int newId = Integer.parseInt(numericPart) + 1;
+
+                // Format as S001, S002, etc.
+                return String.format("P%03d", newId);
             } else {
-                return "P001";
+                return "P001"; // first ID
             }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "P001"; // fallback to first ID if query fails
         }
     }
 }

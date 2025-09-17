@@ -49,7 +49,7 @@ public class PaymentBoImpl implements PaymentBo, SuperBO {
 
     @Override
     public String generateNewPaymentId() {
-        return paymentDAO.generateNewId(); // Use DAO to generate new ID like P001
+        return paymentDAO.generateNewId();
     }
 
 
