@@ -10,4 +10,6 @@ public interface PaymentDAO extends CrudDAO<Payment> {
 
 
     ArrayList<Payment> getAll();
+
+    boolean delete(String paymentId);
 }

@@ -2,6 +2,7 @@ package com.example.the_elite_driving_school_management_system.DAO.Custom.impl;
 
 import com.example.the_elite_driving_school_management_system.Config.FactoryConfiguration;
 import com.example.the_elite_driving_school_management_system.DAO.Custom.PaymentDAO;
+import com.example.the_elite_driving_school_management_system.Entity.Course;
 import com.example.the_elite_driving_school_management_system.Entity.Payment;
 
 import org.hibernate.Session;
@@ -78,6 +79,31 @@ public class PaymentDAOImpl implements PaymentDAO {
        try (Session session = factoryConfiguration.getSession()) {
             List<Payment> payments = session.createQuery("FROM Payment", Payment.class).list();
             return new ArrayList<>(payments);
+
         }
+    }
+
+    @Override
+    public boolean delete(String paymentId) {
+        Session session = factoryConfiguration.getSession();
+        Transaction tx=session.beginTransaction();
+        try {
+            Payment payment = session.get(Payment.class, paymentId);
+            if (payment!= null) {
+                session.remove(payment);
+                tx.commit();
+                return true;
+            }
+            return false;
+        } catch (Exception e) {
+            if (tx != null) {
+                tx.rollback();
+            }
+            e.printStackTrace();
+            return false;
+        } finally {
+            session.close();
+        }
+
     }
 }

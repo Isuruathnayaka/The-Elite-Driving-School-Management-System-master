@@ -171,7 +171,7 @@ private void setupTableColumns(){
 
         boolean isValidName = name.matches(namePattern);
         boolean isValidDuration = duration.matches(durationPattern);
-        boolean isValidFee = feeText.matches(feePattern);   // FIXED
+        boolean isValidFee = feeText.matches(feePattern);
         boolean isValidDescription = description.matches(descriptionPattern);
 
         System.out.println("Name: " + name + " | " + isValidName);

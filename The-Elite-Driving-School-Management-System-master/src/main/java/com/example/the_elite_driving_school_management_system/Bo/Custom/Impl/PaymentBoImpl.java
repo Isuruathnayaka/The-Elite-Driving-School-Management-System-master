@@ -84,4 +84,9 @@ public class PaymentBoImpl implements PaymentBo, SuperBO {
                 .map(MapUtil::toDTO)
                 .collect(Collectors.toCollection(ArrayList::new));
     }
+
+    @Override
+    public boolean deletePayment(String paymentId) {
+        return paymentDAO.delete(paymentId);
+    }
 }

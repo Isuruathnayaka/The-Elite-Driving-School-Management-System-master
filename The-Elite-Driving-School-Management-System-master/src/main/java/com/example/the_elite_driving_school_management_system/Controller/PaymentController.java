@@ -60,7 +60,18 @@ public class PaymentController implements Initializable {
 
     public void btnDeletePayment(ActionEvent actionEvent) {
         ANCAddPaymentPart.setVisible(false);
-        PaymentTM selectedPayment=(PaymentTM) cmbCourses.getSelectionModel().getSelectedItem();
+        PaymentTM selectedPayment=(PaymentTM) table.getSelectionModel().getSelectedItem();
+        if (selectedPayment != null) {
+            boolean isDeleted=paymentBo.deletePayment(selectedPayment.getPaymentId());
+            if (isDeleted) {
+                new Alert(Alert.AlertType.INFORMATION, "Payment deleted successfully").show();
+                clear();
+                loadTableData();
+            }else {
+                new Alert(Alert.AlertType.INFORMATION,"Failed").show();
+            }
+
+        }
 
 
 
