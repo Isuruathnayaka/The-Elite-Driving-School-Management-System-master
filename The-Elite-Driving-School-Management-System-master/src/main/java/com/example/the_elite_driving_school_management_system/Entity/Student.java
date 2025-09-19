@@ -77,7 +77,7 @@ public class Student {
 
     @OneToMany(mappedBy = "student", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Lesson> lessons = new ArrayList<>();
-    @OneToMany(mappedBy = "student",cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "student",cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<Payment> payments = new ArrayList<>();
 
     // Default constructor (required by JPA)

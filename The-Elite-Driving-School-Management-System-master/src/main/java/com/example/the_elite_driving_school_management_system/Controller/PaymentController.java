@@ -49,6 +49,8 @@ public class PaymentController implements Initializable {
 
 
     public ComboBox cmbCourses;
+    public Button btnSave;
+    public Button btnUpdateDetails;
 
     public void btnAddPayment(ActionEvent actionEvent) {
         ANCAddPaymentPart.setVisible(true);
@@ -56,6 +58,7 @@ public class PaymentController implements Initializable {
 
     public void btnUpdatePayment(ActionEvent actionEvent) {
         ANCAddPaymentPart.setVisible(true);
+
     }
 
     public void btnDeletePayment(ActionEvent actionEvent) {
@@ -228,11 +231,23 @@ public class PaymentController implements Initializable {
         txtPaymentId.setText(payment.getPaymentId());
         txtStudentId.setText(payment.getStudentId());
         cmbCourses.setValue(payment.getCourseId());
+        txtPayment.setText(payment.getPayment().toString());
         statusComBox.setValue(payment.getStatus());
     }
 
 
-
-
-
+    public void btnUpdateDetails(ActionEvent actionEvent) {
+        PaymentDTO paymentDTO = checkMatch();
+        if (paymentDTO != null) {
+            boolean isUpdated= paymentBo.update(paymentDTO);
+            if (isUpdated) {
+                new Alert(Alert.AlertType.INFORMATION, "Updated").show();
+                loadTableData();
+                clear();
+                ANCAddPaymentPart.setVisible(false);
+            }else {
+                new Alert(Alert.AlertType.ERROR, "Invalid Payment").show();
+            }
+        }
+    }
 }
