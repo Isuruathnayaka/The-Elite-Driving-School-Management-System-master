@@ -45,8 +45,11 @@ public class PaymentBoImpl implements PaymentBo, SuperBO {
 
     @Override
     public boolean update(PaymentDTO dto) {
-        // Implement update logic if neede
-        return paymentDAO.update(MapUtil.toEntity(dto));
+        Student student = studentDAO.findById(dto.getStudentId());
+        if (student == null) return false;
+        Payment payment = MapUtil.toEntity(dto, student);
+
+        return paymentDAO.update(payment);
     }
 
     @Override
