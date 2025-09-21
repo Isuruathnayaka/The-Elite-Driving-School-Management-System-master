@@ -92,4 +92,9 @@ public class PaymentBoImpl implements PaymentBo, SuperBO {
     public boolean deletePayment(String paymentId) {
         return paymentDAO.delete(paymentId);
     }
+
+    @Override
+    public List<String> getUnpaidCoursesByStudent(String studentId) {
+        return paymentDAO.getUnpaidCoursesByStudent(studentId);
+    }
 }

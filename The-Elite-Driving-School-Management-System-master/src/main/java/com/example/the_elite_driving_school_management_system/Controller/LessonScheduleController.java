@@ -1,5 +1,6 @@
 package com.example.the_elite_driving_school_management_system.Controller;
 
+import com.example.the_elite_driving_school_management_system.Entity.Payment;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -69,6 +70,7 @@ public class LessonScheduleController implements Initializable {
 
         String studentValidateID = txtStudentIdValidate.getText();
         if(studentValidateID.matches("^S\\d{3}$")) {
+
             ANCValidationView.setVisible(false);
 
         } else {

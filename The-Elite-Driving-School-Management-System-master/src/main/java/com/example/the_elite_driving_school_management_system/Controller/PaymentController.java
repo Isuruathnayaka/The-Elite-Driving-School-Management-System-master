@@ -107,6 +107,7 @@ public class PaymentController implements Initializable {
            if (isSaved) {
                new Alert(Alert.AlertType.INFORMATION, "Payment Saved").show();
                clear();
+               loadTableData();
 
            }
            else {
@@ -198,28 +199,35 @@ public class PaymentController implements Initializable {
     private void loadCourse() throws SystemException {
         String studentId = txtStudentId.getText().trim();
 
-        StudentBo studentBo = (StudentBo) BOFactory.getInstance().getBO(BOFactory.BOType.STUDENT);
+        if (studentId.isEmpty()) {
+            new Alert(Alert.AlertType.ERROR, "Please enter a Student ID").show();
+            return;
+        }
 
-        List<String> courseIds = studentBo.getCourseIdsByStudent(studentId);
+        PaymentBo paymentBo = (PaymentBo) BOFactory.getInstance().getBO(BOFactory.BOType.PAYMENT);
 
+        // 1. Get unpaid courses for this student
+        List<String> unpaidCourses = paymentBo.getUnpaidCoursesByStudent(studentId);
+
+        // 2. Clear the ComboBox and add only unpaid courses
         cmbCourses.getItems().clear();
-        cmbCourses.getItems().addAll(courseIds);
+        cmbCourses.getItems().addAll(unpaidCourses);
 
-        if (!courseIds.isEmpty()) {
-
+        if (!unpaidCourses.isEmpty()) {
             cmbCourses.getSelectionModel().selectFirst();
-
 
             cmbCourses.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
                 if (newVal != null) {
                     System.out.println("Selected course: " + newVal);
-
                 }
             });
         } else {
-            new Alert(Alert.AlertType.ERROR, "No courses found for student: " + studentId).show();
+            new Alert(Alert.AlertType.INFORMATION, "All courses for this student are already paid!").show();
         }
     }
+
+
+
     private void setupColumns(){
         colPaymentId.setCellValueFactory(new PropertyValueFactory<>("paymentId"));
         colStudentID.setCellValueFactory(new PropertyValueFactory<>("studentId"));

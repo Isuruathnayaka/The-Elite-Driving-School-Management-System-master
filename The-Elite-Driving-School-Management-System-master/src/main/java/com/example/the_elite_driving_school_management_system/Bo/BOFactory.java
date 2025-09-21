@@ -3,7 +3,6 @@ package com.example.the_elite_driving_school_management_system.Bo;
 import com.example.the_elite_driving_school_management_system.Bo.Custom.Impl.*;
 import com.example.the_elite_driving_school_management_system.DAO.Custom.*;
 import com.example.the_elite_driving_school_management_system.DAO.DAOFactory;
-import com.example.the_elite_driving_school_management_system.Bo.SuperBO;
 
 
 public class BOFactory {

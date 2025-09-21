@@ -96,7 +96,7 @@ public class Course {
         this.description = description;
     }
 
-    public Object getCourseId() {
+    public String getCourseId() {
         return id;
     }
 }

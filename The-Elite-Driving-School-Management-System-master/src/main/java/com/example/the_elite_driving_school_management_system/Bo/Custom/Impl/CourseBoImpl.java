@@ -10,7 +10,6 @@ import com.example.the_elite_driving_school_management_system.Entity.Course;
 import jakarta.transaction.SystemException;
 import jakarta.transaction.Transaction;
 import org.hibernate.Session;
-import org.hibernate.query.Query;
 
 import java.util.ArrayList;
 import java.util.List;

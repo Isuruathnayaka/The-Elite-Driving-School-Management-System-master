@@ -18,4 +18,6 @@ public interface PaymentBo extends CrudDAO<PaymentDTO> {
 
     ArrayList<PaymentDTO> getAllPayments();
     boolean deletePayment(String paymentId);
+
+    List<String> getUnpaidCoursesByStudent(String studentId);
 }
