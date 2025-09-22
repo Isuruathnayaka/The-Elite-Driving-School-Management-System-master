@@ -68,17 +68,7 @@ public class PaymentBoImpl implements PaymentBo, SuperBO {
         return studentDAO.findById(studentId);
     }
 
-    @Override
-    public List<String> getCourseIdsByStudent(String studentId) {
-        // Fetch student entity and get their courses
-        Student student = findById(studentId);
-        if (student != null && student.getCourses() != null) {
-            return student.getCourses().stream()
-                    .map(course -> course.getCourseId().toString()) // Assuming courseId is String
-                    .toList();
-        }
-        return List.of();
-    }
+
 
     @Override
     public ArrayList<PaymentDTO> getAllPayments() {

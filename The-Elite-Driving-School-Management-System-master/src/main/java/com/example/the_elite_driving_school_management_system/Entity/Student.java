@@ -60,7 +60,17 @@ public class Student {
 
     }
 
-
+    public Student(String studentID, String name, int age, String address, String contact, String email, LocalDate date, String courseType, String course) {
+        this.id = studentID;
+        this.name = name;
+        this.age = age;
+        this.address = address;
+        this.contact = contact;
+        this.email = email;
+        this.registrationDate = date;
+        this.courseType = courseType;
+        this.courses = courses;
+    }
 
 
     public List<Lesson> getLessons() {
@@ -94,25 +104,6 @@ public class Student {
     public void setPayments(List<Payment> payments) {
         this.payments = payments;
     }
-
-    // Full constructor
-    public Student(String id, String name, int age, String address, String contact,
-                   String email, LocalDate registrationDate, String courseType, String courseId) {
-        this.id = id;
-        this.name = name;
-        this.age = age;
-        this.address = address;
-        this.contact = contact;
-        this.email = email;
-        this.registrationDate = registrationDate;
-        this.courseType = courseType;
-
-    }
-
-
-
-
-
     // Getters and Setters
     public String getId() {
         return id;
@@ -217,7 +208,4 @@ public class Student {
     public String getCourse() {
         return courseType;
     }
-
-
-
 }

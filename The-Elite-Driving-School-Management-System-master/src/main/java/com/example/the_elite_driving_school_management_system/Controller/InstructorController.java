@@ -100,22 +100,38 @@ public class InstructorController implements Initializable {
             List<CourseDTO> coursesFromDB = courseBo.getAllCourses(); // renamed
             ObservableList<String> courseNames = FXCollections.observableArrayList();
 
+            // Map course name → course ID for quick lookup
+            Map<String, String> nameToIdMap = new HashMap<>();
             for (CourseDTO course : coursesFromDB) {
                 courseNames.add(course.getName());
+                nameToIdMap.put(course.getName(), course.getId());
             }
+
             courseListView.setItems(courseNames);
 
             // Allow multiple selection
             courseListView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
-            // Show selected courses in courseList TextArea
+            // Show selected courses in courseList TextArea and update txtCourseId
             courseListView.getSelectionModel().selectedItemProperty().addListener((obs, oldSel, newSel) -> {
                 if (newSel != null) {
                     ObservableList<String> selected = courseListView.getSelectionModel().getSelectedItems();
+
                     courseList.clear();
-                    for (String c : selected) {
-                        courseList.appendText(c + "\n");
+                    List<String> selectedIds = new ArrayList<>();
+
+                    for (String courseName : selected) {
+                        courseList.appendText(courseName + "\n");
+
+                        // Add the course ID to the list
+                        String id = nameToIdMap.get(courseName);
+                        if (id != null) {
+                            selectedIds.add(id);
+                        }
                     }
+
+                    // Join IDs with comma and set to txtCourseId
+                    txtCourseID.setText(String.join(", ", selectedIds));
                 }
             });
 
@@ -123,6 +139,7 @@ public class InstructorController implements Initializable {
             e.printStackTrace();
         }
     }
+
     private void courseSelection() {
         courseListView.getItems().addAll(
                 "Basic Learner Program",

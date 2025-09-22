@@ -1,6 +1,7 @@
 package com.example.the_elite_driving_school_management_system.TM;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public class StudentTM implements Comparable<StudentTM> {
     private String studentId;   // must match PropertyValueFactory in controller
@@ -54,7 +55,7 @@ public class StudentTM implements Comparable<StudentTM> {
     }
 
     public StudentTM(String studentId, String name, int age, String address, String contact,
-                     String email, LocalDate date, String courseType, String courses) {
+                     String email, LocalDate date, String courseType, List<String> courses) {
         this.studentId = studentId;
         this.name = name;
         this.age = age;
@@ -63,7 +64,7 @@ public class StudentTM implements Comparable<StudentTM> {
         this.email = email;
         this.date = date;
         this.courseType = courseType;
-       this.courses = courses;
+       this.courses = String.valueOf(courses);
 
     }
 

@@ -48,6 +48,11 @@ public class InstructorBoImpl implements InstructorBo {
         return instructorDAO.delete(id);
     }
 
+    @Override
+    public InstructorDTO findByName(String courseName) {
+        return null;
+    }
+
 
     @Override
     public boolean update(InstructorDTO dto) {

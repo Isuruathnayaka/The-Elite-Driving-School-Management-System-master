@@ -126,7 +126,7 @@ public class StudentController implements Initializable {
                         student.getEmail(),
                         student.getRegistrationDate(),// Show names here
                          student.getCourseType(),
-                        student.getCourse()
+                        student.getCourseIdList()
                 ));
             }
         }

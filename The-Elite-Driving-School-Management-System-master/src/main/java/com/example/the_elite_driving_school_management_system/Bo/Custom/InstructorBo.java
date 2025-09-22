@@ -18,4 +18,6 @@ public interface InstructorBo extends CrudBo<InstructorDTO> {
 
     ArrayList<InstructorDTO> getAllInstructors();
     boolean delete(String id);
+
+    InstructorDTO findByName(String courseName);
 }

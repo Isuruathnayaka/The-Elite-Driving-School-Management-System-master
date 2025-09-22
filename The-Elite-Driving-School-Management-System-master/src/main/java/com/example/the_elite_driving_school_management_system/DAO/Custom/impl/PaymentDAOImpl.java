@@ -2,12 +2,11 @@ package com.example.the_elite_driving_school_management_system.DAO.Custom.impl;
 
 import com.example.the_elite_driving_school_management_system.Config.FactoryConfiguration;
 import com.example.the_elite_driving_school_management_system.DAO.Custom.PaymentDAO;
-import com.example.the_elite_driving_school_management_system.Entity.Course;
 import com.example.the_elite_driving_school_management_system.Entity.Payment;
 
-import com.example.the_elite_driving_school_management_system.Entity.Student;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.query.NativeQuery;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -110,42 +109,23 @@ public class PaymentDAOImpl implements PaymentDAO {
 
     @Override
     public List<String> getUnpaidCoursesByStudent(String studentId) {
-        List<String> unpaidCourses = new ArrayList<>();
+        String sql = """
+            SELECT sc.course_id
+            FROM student_course sc
+            WHERE sc.student_id = :studentId
+              AND sc.course_id NOT IN (
+                  SELECT p.course_id
+                  FROM payment p
+                  WHERE p.studentId = :studentId
+              )
+        """;
 
         try (Session session = factoryConfiguration.getSession()) {
-            Transaction tx = session.beginTransaction();
-
-            // 1. Get all courses registered for the student (from the Student entity)
-            Student student = session.get(Student.class, studentId);
-            if (student == null) {
-                return unpaidCourses; // no such student
-            }
-
-            List<String> registeredCourses = new ArrayList<>();
-            if (student.getCourses() != null) {
-                for (Course course : student.getCourses()) {
-                    registeredCourses.add(course.getCourseId()); // get all course IDs
-                }
-            }
-
-            // 2. Get all paid courses from Payment table
-            List<String> paidCourses = session.createQuery(
-                            "select p.courseId from Payment p where p.student.id = :sid",
-                            String.class
-                    )
-                    .setParameter("sid", studentId)
-                    .getResultList();
-
-            // 3. Remove paid courses from registered courses
-            registeredCourses.removeAll(paidCourses);
-
-            unpaidCourses = registeredCourses;
-
-            tx.commit();
-        } catch (Exception e) {
-            e.printStackTrace();
+            NativeQuery<String> query = session.createNativeQuery(sql);
+            query.setParameter("studentId", studentId);
+            return query.getResultList();
         }
-
-        return unpaidCourses;
     }
+
+
 }
