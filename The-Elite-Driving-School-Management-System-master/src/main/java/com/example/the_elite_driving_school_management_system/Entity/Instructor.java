@@ -40,8 +40,8 @@ public class Instructor {
 
     @Column(name = "courseType", nullable = false)
     private String courseType;
-//    @Column(name = "courseId", nullable = false, unique = true)
-//    private String courseId;
+    @Column(name = "courseId", nullable = false, unique = true)
+   private String courseId;
 
     @OneToMany(mappedBy = "instructor", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Lesson> lessons = new ArrayList<>();
@@ -57,7 +57,7 @@ public class Instructor {
         this.email = email;
         this.registrationDate = date;
         this.courseType = course;
-//        this.courseId = courseId;
+        this.courseId = courseId;
     }
 
     public Instructor(String instructorID, String name, int age, String address, String contact, String email, LocalDate date, String course) {
@@ -83,5 +83,9 @@ public class Instructor {
 
     public String getInstructorID() {
         return id;
+    }
+
+    public String getCourseId() {
+        return courseId;
     }
 }

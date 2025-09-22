@@ -17,4 +17,5 @@ public interface InstructorBo extends CrudBo<InstructorDTO> {
     String  generateNewInstructorId();
 
     ArrayList<InstructorDTO> getAllInstructors();
+    boolean delete(String id);
 }

@@ -43,10 +43,15 @@ public class InstructorBoImpl implements InstructorBo {
                 .map(MapUtil::toDTO)
                 .collect(Collectors.toCollection(ArrayList::new));
     }
+    @Override
+    public boolean delete(String id){
+        return instructorDAO.delete(id);
+    }
 
 
     @Override
     public boolean update(InstructorDTO dto) {
-        return false;
+
+        return instructorDAO.update(MapUtil.toEntity(dto));
     }
 }

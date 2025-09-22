@@ -3,6 +3,7 @@ package com.example.the_elite_driving_school_management_system.DAO.Custom.impl;
 
 import com.example.the_elite_driving_school_management_system.Config.FactoryConfiguration;
 import com.example.the_elite_driving_school_management_system.DAO.Custom.InstructorDAO;
+import com.example.the_elite_driving_school_management_system.Entity.Course;
 import com.example.the_elite_driving_school_management_system.Entity.Instructor;
 
 import org.hibernate.Session;
@@ -34,9 +35,31 @@ public class InstructorDAOImpl implements InstructorDAO {
     public boolean update(Instructor dto) {
         Session session = factoryConfiguration.getSession();
         Transaction tx = session.beginTransaction();
-        session.update(dto);
+        session.merge(dto);
         tx.commit();
         return true;
+    }
+    @Override
+    public boolean delete(String id) {
+        Session session = factoryConfiguration.getSession();
+        Transaction tx = session.beginTransaction();
+        try {
+            Instructor instructor = session.get(Instructor.class, id);
+            if (instructor != null) {
+                session.remove(instructor);
+                tx.commit();
+                return true;
+            }
+            return false;
+        } catch (Exception e) {
+            if (tx != null) {
+                tx.rollback();
+            }
+            e.printStackTrace();
+            return false;
+        } finally {
+            session.close();
+        }
     }
 
 
@@ -44,21 +67,15 @@ public class InstructorDAOImpl implements InstructorDAO {
     @Override
     public String generateNewId() {
         try (Session session = factoryConfiguration.getSession()) {
-            Transaction transaction = session.beginTransaction();
-
-            // Use the entity class name "Instructor" in HQL, not the table name
-            Query<String> query = session.createQuery(
-                    "SELECT i.id FROM Instructor i ORDER BY i.id DESC",
-                    String.class
-            );
-            query.setMaxResults(1);
-
-            String lastId = query.uniqueResult();
-            transaction.commit();
-
+            String lastId=session.createQuery(
+                    "SELECT i.id FROM Instructor i ORDER BY i.id DESC",String.class
+            )
+                    .setMaxResults(1)
+                    .uniqueResult();
             if (lastId != null) {
-                int newId = Integer.parseInt(lastId.replace("I001", "")) + 1;
-                return "I001" + newId;
+            String numbericPart=lastId.replaceAll("\\D","");
+            int newId=Integer.parseInt(numbericPart)+1;
+            return String.format("I%03d",newId);
             } else {
                 return "I001";
             }

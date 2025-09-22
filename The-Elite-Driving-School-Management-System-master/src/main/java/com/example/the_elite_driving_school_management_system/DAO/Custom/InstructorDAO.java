@@ -13,4 +13,5 @@ public interface InstructorDAO extends CrudDAO<Instructor> {
     String generateNewId();
 
     ArrayList<Instructor> getAll();
+    boolean delete(String id);
 }

@@ -18,7 +18,7 @@ public class InstructorDTO {
     private String email;
     private LocalDate date;
     private String course;
-  //  private String courseId;
+   private String courseId;
 
     public LocalDate getRegistrationDate() {
         return date;

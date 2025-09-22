@@ -48,17 +48,17 @@
         <Button layoutX="250.0" layoutY="543.0" mnemonicParsing="false" onAction="#btnDelete" text="Delete" />
         <Button layoutX="357.0" layoutY="543.0" mnemonicParsing="false" onAction="#btnView" text="View" />
         <TextArea fx:id="courseList" layoutX="470.0" layoutY="398.0" prefHeight="66.0" prefWidth="389.0" />
-        <TableView fx:id="table" layoutY="647.0" prefHeight="433.0" prefWidth="1920.0">
+        <TableView fx:id="table" layoutY="602.0" prefHeight="433.0" prefWidth="1963.0">
             <columns>
-                <TableColumn fx:id="colInstructorId" prefWidth="90.0" text="InstructorID" />
-                <TableColumn fx:id="colName" prefWidth="129.0" text="Name" />
-                <TableColumn fx:id="colAge" prefWidth="76.0" text="Age" />
-                <TableColumn fx:id="colAddress" prefWidth="167.0" text="Address" />
-                <TableColumn fx:id="colContact" prefWidth="214.0" text="Contact" />
-                <TableColumn fx:id="colEmail" prefWidth="142.0" text="Email" />
-                <TableColumn fx:id="colDate" prefWidth="135.0" text="Date" />
-                <TableColumn fx:id="colCourses" minWidth="0.0" prefWidth="93.0" text="Courses" />
-                <TableColumn fx:id="colCourseId" prefWidth="1458.0" text="CourseID" />
+                <TableColumn fx:id="colInstructorId" prefWidth="183.0" text="InstructorID" />
+                <TableColumn fx:id="colName" prefWidth="114.0" text="Name" />
+                <TableColumn fx:id="colAge" prefWidth="71.0" text="Age" />
+                <TableColumn fx:id="colAddress" prefWidth="192.0" text="Address" />
+                <TableColumn fx:id="colContact" prefWidth="177.0" text="Contact" />
+                <TableColumn fx:id="colEmail" prefWidth="211.0" text="Email" />
+                <TableColumn fx:id="colDate" prefWidth="211.0" text="Date" />
+                <TableColumn fx:id="colCourses" minWidth="0.0" prefWidth="224.0" text="Courses" />
+                <TableColumn fx:id="colCourseId" prefWidth="1121.0" text="CourseID" />
             </columns>
         </TableView>
         <Label fx:id="txtInstructorID" layoutX="11.0" layoutY="58.0" text="InstructorID" />

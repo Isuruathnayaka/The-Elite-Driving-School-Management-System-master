@@ -1,7 +1,9 @@
 package com.example.the_elite_driving_school_management_system.Controller;
 
 import com.example.the_elite_driving_school_management_system.Bo.BOFactory;
+import com.example.the_elite_driving_school_management_system.Bo.Custom.CourseBo;
 import com.example.the_elite_driving_school_management_system.Bo.Custom.InstructorBo;
+import com.example.the_elite_driving_school_management_system.DTO.CourseDTO;
 import com.example.the_elite_driving_school_management_system.DTO.InstructorDTO;
 import com.example.the_elite_driving_school_management_system.TM.InstructorTM;
 import javafx.collections.FXCollections;
@@ -13,10 +15,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.net.URL;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class InstructorController implements Initializable {
     public TextField txtName;
@@ -44,10 +43,12 @@ public class InstructorController implements Initializable {
     public TextField txtCourseID;
 
     private final InstructorBo instructorBo=(InstructorBo) BOFactory.getInstance().getBO(BOFactory.BOType.INSTRUCTOR);
+    private final CourseBo courseBo = (CourseBo) BOFactory.getInstance().getBO(BOFactory.BOType.COURSE);
     public Label txtInstructorID;
     public RadioButton availableInstuctor;
 
     public void btnReset(ActionEvent actionEvent) {
+        reFresh();
     }
 
     public void btnAdd(ActionEvent actionEvent) {
@@ -58,8 +59,9 @@ public class InstructorController implements Initializable {
 
             if (isSaved) {
                 new Alert(Alert.AlertType.INFORMATION, "Instructor Added Successfully").show();
-                txtInstructorID.setText(generateNewId());
                 loadTableData();
+                loadCoursesFromDB();
+                reFresh();
             } else {
                 new Alert(Alert.AlertType.ERROR, "Instructor Already Exists").show();
             }
@@ -75,7 +77,7 @@ public class InstructorController implements Initializable {
 
         if (allInstructors != null) {
             for (InstructorDTO instructor : allInstructors) {
-                tableList.add(new InstructorTM(
+                tableList.add(  new InstructorTM(
                         instructor.getInstructorID(),
                         instructor.getName(),
                         instructor.getAge(),
@@ -83,13 +85,43 @@ public class InstructorController implements Initializable {
                         instructor.getContact(),
                         instructor.getEmail(),
                         instructor.getRegistrationDate(),
-                        instructor.getCourse()
-//                        instructor.getCourseId()
+                        instructor.getCourse(),
+                        instructor.getCourseId()
                 ));
             }
         }
         table.setItems(tableList);
 
+    }
+    private void loadCoursesFromDB() {
+        courseListView.getItems().clear();
+
+        try {
+            List<CourseDTO> coursesFromDB = courseBo.getAllCourses(); // renamed
+            ObservableList<String> courseNames = FXCollections.observableArrayList();
+
+            for (CourseDTO course : coursesFromDB) {
+                courseNames.add(course.getName());
+            }
+            courseListView.setItems(courseNames);
+
+            // Allow multiple selection
+            courseListView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+
+            // Show selected courses in courseList TextArea
+            courseListView.getSelectionModel().selectedItemProperty().addListener((obs, oldSel, newSel) -> {
+                if (newSel != null) {
+                    ObservableList<String> selected = courseListView.getSelectionModel().getSelectedItems();
+                    courseList.clear();
+                    for (String c : selected) {
+                        courseList.appendText(c + "\n");
+                    }
+                }
+            });
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
     private void courseSelection() {
         courseListView.getItems().addAll(
@@ -172,7 +204,8 @@ public class InstructorController implements Initializable {
                         contact,
                         email,
                         date,
-                        courses
+                        courses,
+                        courseID
                 );
             }
         } catch (Exception e) {
@@ -183,6 +216,16 @@ public class InstructorController implements Initializable {
 
 
     public void btnUpdate(ActionEvent actionEvent) {
+        InstructorDTO instructorDTO = checkMatch();
+        if (instructorDTO != null) {
+            boolean isUpdated = instructorBo.update(instructorDTO);
+            if (isUpdated) {
+                new Alert(Alert.AlertType.INFORMATION, "Instructor Updated").show();
+                loadTableData();
+                reFresh();
+
+            }
+        }
     }
 
     public void btnDelete(ActionEvent actionEvent) {
@@ -193,12 +236,39 @@ public class InstructorController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        loadCoursesFromDB();
         txtInstructorID.setText(generateNewId());
-        courseSelection();
+
         loadTableData();
         setupTableColumns();
+        table.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            if (newSelection != null) {
+                setDataToFields((InstructorTM) newSelection);
+            }
+        });
 
+
+    }
+    private void setDataToFields(InstructorTM instructor){
+        txtInstructorID.setText(instructor.getInstructorId());
+        txtName.setText(instructor.getName());
+        txtAge.setText(String.valueOf(instructor.getAge()));
+        datePiker.setValue(instructor.getDate());
+        courseList.setText(instructor.getCourses());
+        txtCourseID.setText(instructor.getCourseID());
+        txtAddress.setText(instructor.getAddress());
+        txtContact.setText(instructor.getContact());
+        txtEmail.setText(instructor.getEmail());
+
+
+    }
+    private void reFresh(){
+        txtInstructorID.setText(generateNewId());
+        txtName.clear();
+        txtAge.clear();
+        txtAddress.clear();
+        txtContact.clear();
+        txtEmail.clear();
 
     }
 }
