@@ -91,6 +91,10 @@ public class CourseBoImpl implements CourseBo {
         return feeStr;
     }
 
+    @Override
+    public CourseDTO findById(String id) {
+        return courseDAO.findById(id);
+    }
 
 
 }

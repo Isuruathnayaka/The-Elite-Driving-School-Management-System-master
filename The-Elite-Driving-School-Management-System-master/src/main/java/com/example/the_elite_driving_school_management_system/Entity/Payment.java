@@ -17,11 +17,14 @@ public class Payment {
     @Column(name = "course_id")
     private String courseId;
 
-    @Column(name = "payment")
+    @Column(name = "payment_amount")
     private Long payment;
 
     @Column(name = "status")
     private String status;
+
+
+
 
     public Payment() {
     }

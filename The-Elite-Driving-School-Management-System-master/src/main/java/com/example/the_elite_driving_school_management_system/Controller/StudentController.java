@@ -96,8 +96,8 @@ public class StudentController implements Initializable {
         txtContact.setText(student.getContact());
         txtEmail.setText(student.getEmail());
         datePiker.setValue(student.getDate());
-        courseList.setText(student.getCourse());
-        txtCourseID.setText(student.getCourseId());
+        courseList.setText(student.getCourseType());
+        txtCourseID.setText(student.getCourses());
     }
 
     private void loadTableData() {
@@ -107,22 +107,15 @@ public class StudentController implements Initializable {
         if (allStudents != null) {
             for (StudentDTO student : allStudents) {
 
-                // Build comma-separated course IDs (or names)
-                List<String> courseIds = student.getCourseIdList(); // List<String>
-                String courseIdsStr = "";
+                List<String> courseIds = student.getCourseIdList();
+                List<String> courseNames = new ArrayList<>();
                 if (courseIds != null && !courseIds.isEmpty()) {
-                    courseIdsStr = String.join(", ", courseIds);
+                    for (String id : courseIds) {
+                        CourseDTO c = courseBo.findById(id);
+                        if (c != null) courseNames.add(c.getName());
+                    }
                 }
-
-                // Optional: To show course names instead of IDs, use courseBo.findById()
-            /*
-            List<String> courseNames = new ArrayList<>();
-            for (String id : courseIds) {
-                CourseDTO c = courseBo.findById(id);
-                if (c != null) courseNames.add(c.getName());
-            }
-            String courseNamesStr = String.join(", ", courseNames);
-            */
+                String courseNamesStr = String.join(", ", courseNames);
 
                 tableList.add(new StudentTM(
                         student.getStudentID(),
@@ -131,15 +124,16 @@ public class StudentController implements Initializable {
                         student.getAddress(),
                         student.getContact(),
                         student.getEmail(),
-                        student.getRegistrationDate(),
-                        student.getCourseType(), // human-readable courseType
-                        courseIdsStr             // or courseNamesStr if you prefer names
+                        student.getRegistrationDate(),// Show names here
+                         student.getCourseType(),
+                        student.getCourse()
                 ));
             }
         }
 
         table.setItems(tableList);
     }
+
 
 
     public void btnAdd(ActionEvent actionEvent) {
@@ -280,14 +274,7 @@ public class StudentController implements Initializable {
     }
 
     public void btnReset(ActionEvent actionEvent) {
-        txtName.clear();
-        txtAge.clear();
-        txtAddress.clear();
-        txtEmail.clear();
-        txtContact.clear();
-        txtCourseID.clear();
-        datePiker.setValue(null);
-        courseList.clear();
+       clearFields();
     }
     private void clearFields() {
         txtName.clear();

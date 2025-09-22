@@ -29,7 +29,8 @@ public class MapUtil {
                 dto.getContact(),
                 dto.getEmail(),
                 dto.getDate(),
-                dto.getCourseType()
+                dto.getCourseType(),
+                dto.getCourse()
         );
 
 
@@ -138,7 +139,7 @@ public class MapUtil {
 
         return new PaymentDTO(
                 entity.getPaymentID(),
-                entity.getStudent().getStudentID(),   // convert Student object → studentId
+                entity.getStudent(),  // convert Student object → studentId
                 entity.getCourseID(),
                 entity.getPayment(),
                 entity.getStatus()

@@ -54,7 +54,7 @@ public class StudentTM implements Comparable<StudentTM> {
     }
 
     public StudentTM(String studentId, String name, int age, String address, String contact,
-                     String email, LocalDate date, String courses, String courseID) {
+                     String email, LocalDate date, String courseType, String courses) {
         this.studentId = studentId;
         this.name = name;
         this.age = age;
@@ -62,8 +62,8 @@ public class StudentTM implements Comparable<StudentTM> {
         this.contact = contact;
         this.email = email;
         this.date = date;
-        this.courseType = courses;
-        this.courses = courseID;
+        this.courseType = courseType;
+       this.courses = courses;
 
     }
 

@@ -88,7 +88,7 @@ public class PaymentController implements Initializable {
                 PaymentTM tm = new PaymentTM(
                         paymentDTO.getPaymentId(),
                         paymentDTO.getStudentId(),
-                        paymentDTO.getCourseID(),
+                        paymentDTO.getCourseId(),
                         paymentDTO.getPayment(),
                         paymentDTO.getStatus()
                 );

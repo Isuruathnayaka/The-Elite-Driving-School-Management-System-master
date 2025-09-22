@@ -29,34 +29,38 @@ public class StudentBoImpl implements StudentBo {
         try (Session session = factoryConfiguration.getSession()) {
             Transaction tx = session.beginTransaction();
 
-            // Convert DTO → Entity
-            Student student = new Student(
-                    studentDTO.getStudentID(),
-                    studentDTO.getName(),
-                    studentDTO.getAge(),
-                    studentDTO.getAddress(),
-                    studentDTO.getContact(),
-                    studentDTO.getEmail(),
-                    studentDTO.getRegistrationDate(),
-                    studentDTO.getCourse()
-            );
+            // 1️⃣ Create Student entity without using the constructor that doesn't set courses
+            Student student = new Student();
+            student.setId(studentDTO.getStudentID());
+            student.setName(studentDTO.getName());
+            student.setAge(studentDTO.getAge());
+            student.setAddress(studentDTO.getAddress());
+            student.setContact(studentDTO.getContact());
+            student.setEmail(studentDTO.getEmail());
+            student.setRegistrationDate(studentDTO.getRegistrationDate());
+            student.setCourseType(studentDTO.getCourse());
 
-            // Attach selected courses
+            // 2️⃣ Attach selected courses properly
+            List<Course> courseEntities = new ArrayList<>();
             for (String courseId : studentDTO.getCourseIdList()) {
                 Course course = session.get(Course.class, courseId); // find course by ID
                 if (course != null) {
-                    student.getCourses().add(course);
+                    courseEntities.add(course);
                 }
             }
+            student.setCourses(courseEntities); // set the courses list
 
-            session.save(student); // Hibernate auto-saves into student + student_course join table
+            // 3️⃣ Save Student (Hibernate will handle join table automatically)
+            session.persist(student); // safer than save() for managed entity
             tx.commit();
+
             return true;
         } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
     }
+
 
 
     @Override

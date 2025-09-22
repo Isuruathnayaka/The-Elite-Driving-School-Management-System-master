@@ -148,4 +148,21 @@ public class CourseDAOImpl implements CourseDAO {
         return courseFeeList;
     }
 
-}
+    @Override
+    public CourseDTO findById(String id) {
+        Session session = factoryConfiguration.getSession();
+        CourseDTO course = null;
+
+        try {
+            course = session.get(CourseDTO.class, id); // fetch by primary key
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+
+        return course;
+    }
+    }
+
+

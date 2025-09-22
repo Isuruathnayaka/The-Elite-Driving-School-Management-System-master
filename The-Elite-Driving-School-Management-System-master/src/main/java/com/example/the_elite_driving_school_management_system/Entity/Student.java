@@ -47,7 +47,7 @@ public class Student {
     private List<Course> courses = new ArrayList<>();
 
 
-    public Student(String studentID, String name, int age, String address, String contact, String email, LocalDate date, String courseType) {
+    public Student(String studentID, String name, int age, String address, String contact, String email, LocalDate date, String courseType, List<Course> courses) {
         this.id = studentID;
         this.name = name;
         this.age = age;
@@ -56,8 +56,12 @@ public class Student {
         this.email = email;
         this.registrationDate = date;
         this.courseType = courseType;
+        this.courses = courses;
 
     }
+
+
+
 
     public List<Lesson> getLessons() {
         return lessons;

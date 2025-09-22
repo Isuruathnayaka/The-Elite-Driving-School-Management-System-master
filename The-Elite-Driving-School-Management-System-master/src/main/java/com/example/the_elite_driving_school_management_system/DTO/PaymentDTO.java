@@ -1,5 +1,7 @@
 package com.example.the_elite_driving_school_management_system.DTO;
 
+import com.example.the_elite_driving_school_management_system.Entity.Student;
+
 public class PaymentDTO {
     private String paymentId;
     private String studentId;
@@ -7,7 +9,13 @@ public class PaymentDTO {
     private Long payment;
     private String status;
 
-    public PaymentDTO() {
+    public PaymentDTO(String paymentID, Student student, String courseID, Long payment, String status) {
+        this.paymentId = paymentID;
+        this.studentId = student.getId();
+        this.courseId = courseID;
+        this.payment = payment;
+        this.status = status;
+
     }
 
     public PaymentDTO(String paymentId, String studentId, String courseId, Long payment, String status) {
@@ -17,6 +25,8 @@ public class PaymentDTO {
         this.payment = payment;
         this.status = status;
     }
+
+
 
     // Getters and Setters
     public String getPaymentId() { return paymentId; }
