@@ -82,8 +82,8 @@ public class MapUtil {
                 dto.getContact(),
                 dto.getEmail(),
                 dto.getDate(),
-                dto.getCourse()
-               // dto.getCourseId()
+                dto.getCourse(),
+               dto.getCourseId()
         );
     }
 

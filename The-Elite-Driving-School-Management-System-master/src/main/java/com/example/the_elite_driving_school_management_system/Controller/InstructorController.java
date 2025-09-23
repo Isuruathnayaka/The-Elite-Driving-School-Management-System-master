@@ -139,39 +139,6 @@ public class InstructorController implements Initializable {
             e.printStackTrace();
         }
     }
-
-    private void courseSelection() {
-        courseListView.getItems().addAll(
-                "Basic Learner Program",
-                "Advanced Defensive Driving",
-                "Motorcycle License Training",
-                "Heavy Vehicle Training",
-                "Refresher Driving Course"
-        );
-
-        Map<String, String> courseMapping = new HashMap<>();
-        courseMapping.put("Basic Learner Program", "Basic Learner Program");
-        courseMapping.put("Advanced Defensive Driving", "Advanced Defensive Driving");
-        courseMapping.put("Motorcycle License Training", "Motorcycle License Training");
-        courseMapping.put("Heavy Vehicle Training", "Heavy Vehicle Training");
-        courseMapping.put("Refresher Driving Course", "Refresher Driving Course");
-
-        Map<String, String> courseIdMapping = new HashMap<>();
-        courseIdMapping.put("Basic Learner Program", "C1001");
-        courseIdMapping.put("Advanced Defensive Driving", "C1002");
-        courseIdMapping.put("Motorcycle License Training", "C1003");
-        courseIdMapping.put("Heavy Vehicle Training", "C1004");
-        courseIdMapping.put("Refresher Driving Course", "C1005");
-
-        courseListView.setOnMouseClicked(event -> {
-            String selectedCourse = (String) courseListView.getSelectionModel().getSelectedItem();
-            if (selectedCourse != null) {
-                courseList.appendText(courseMapping.get(selectedCourse) + "\n");
-                txtCourseID.appendText(courseIdMapping.get(selectedCourse) + "\n");
-                courseListView.getItems().remove(selectedCourse);
-            }
-        });
-    }
     private void setupTableColumns() {
         colInstructorId.setCellValueFactory(new PropertyValueFactory<>("instructorId"));
         colName.setCellValueFactory(new PropertyValueFactory<>("name"));
