@@ -21,6 +21,7 @@ import javafx.scene.layout.AnchorPane;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -60,9 +61,11 @@ public class LessonScheduleController implements Initializable {
     public Button btnCheckValidation;
     public ComboBox txtStudentID;
     public ComboBox txtInstructorID;
+    public AnchorPane ANCLesson;
+    public AnchorPane addLessonANC;
 
     public void btnSheduleBtn(ActionEvent actionEvent) {
-        addCourseANC.setVisible(true);
+        addLessonANC.setVisible(true);
 
     }
 
@@ -73,6 +76,8 @@ public class LessonScheduleController implements Initializable {
             if (isSaved) {
                 new Alert(Alert.AlertType.INFORMATION, "Lesson saved successfully").show();
                 refresh();
+                addLessonANC.setVisible(false);
+                loadTableData();
             }
             else {
                 new Alert(Alert.AlertType.ERROR, "Lesson could not be saved").show();
@@ -83,18 +88,52 @@ public class LessonScheduleController implements Initializable {
     }
 
     public void btnUpdate(ActionEvent actionEvent) {
+        LessonDTO lessonDTO=checkMatch();
+        if (lessonDTO!=null) {
+            boolean isUpdated=lessonBO.update(lessonDTO);
+            if (isUpdated) {
+                new Alert(Alert.AlertType.INFORMATION, "Lesson updated successfully").show();
+                refresh();
+                loadTableData();
+                addLessonANC.setVisible(false);
+            }
+            else {
+                new Alert(Alert.AlertType.ERROR, "Lesson could not be updated").show();
+            }
+        }
     }
 
     public void btnEditLesson(ActionEvent actionEvent) {
+        addLessonANC.setVisible(true);
     }
 
     public void btnDelete(ActionEvent actionEvent) {
+        LessonTM selectedLesson= (LessonTM) table.getSelectionModel().getSelectedItem();
+
+        if (selectedLesson != null) {
+            boolean isDeleted=lessonBO.delete(selectedLesson.getLesson_id());
+            if (isDeleted) {
+                new Alert(Alert.AlertType.INFORMATION, "Deleted Successfully", ButtonType.OK).show();
+                refresh();
+                loadTableData();
+            }else {
+                new Alert(Alert.AlertType.ERROR, "Failed to delete Scheduled Lesson", ButtonType.OK).show();
+            }
+        }
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         //ANCValidationView.setVisible(true);
+
         refresh();
+        ANCLesson.setOnMouseClicked(mouseEvent -> {
+            ANCLesson.setVisible(true);
+            addLessonANC.setVisible(false);
+            btnSheduleBtn.setVisible(true); // hide Save
+            btnEditeLesson.setVisible(false);  // show Edit
+            btnDelete.setVisible(false);
+        });
         txtStatus.getItems().addAll("Scheduled","Completed","Cancelled");
         txtCourseID.setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.ENTER) {
@@ -103,6 +142,20 @@ public class LessonScheduleController implements Initializable {
         });
         setupTableColumns();
         loadTableData();
+        table.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                setDataToFields((LessonTM) newValue);
+
+                btnSheduleBtn.setVisible(false); // hide Save
+                btnEditeLesson.setVisible(true);  // show Edit
+                btnDelete.setVisible(true);
+            } else {
+                // If no row selected, reset
+                btnSheduleBtn.setVisible(true); // hide Save
+                btnEditeLesson.setVisible(false);  // show Edit
+                btnDelete.setVisible(false);
+            }
+        });
 
 
 
@@ -118,8 +171,10 @@ public class LessonScheduleController implements Initializable {
         String studentID = txtStudentID.getSelectionModel().getSelectedItem().toString();
         String instructorID = txtInstructorID.getSelectionModel().getSelectedItem().toString();
         boolean isValidName = lessonName.matches(namePattern);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+        LocalTime startTime = LocalTime.parse(time.trim(), formatter);
         if (isValidName){
-            return new LessonDTO(lessonID,lessonName,duration,courseID,date, LocalTime.parse(time),status,studentID,instructorID);
+            return new LessonDTO(lessonID,lessonName,duration,courseID,date, startTime,status,studentID,instructorID);
         }
         return null;
 
@@ -183,6 +238,19 @@ public class LessonScheduleController implements Initializable {
         }
         table.setItems(tableList);
     }
+    private void setDataToFields(LessonTM lesson) {
+        txtLessonID.setText(lesson.getLesson_id());
+        txtName.setText(lesson.getLesson_name());
+        txtDuration.setText(lesson.getDuration());
+        txtCourseID.setText(lesson.getCourse_id());
+        txtStudentID.getSelectionModel().select(lesson.getStudent_id());
+        txtInstructorID.getSelectionModel().select(lesson.getInstructor_id());
+        txtStatus.getSelectionModel().select(lesson.getStatus());
+        txtDate.setValue(
+                lesson.getLesson_date()
+        );
+        txtTime.setText(String.valueOf(lesson.getLesson_time()));
+    }
     private String generateNewId() {
         try {
             String id = String.valueOf(lessonBO.generateNewLessonId());
@@ -197,11 +265,12 @@ public class LessonScheduleController implements Initializable {
         txtName.clear();
         txtDuration.clear();
         txtCourseID.clear();
+        txtTime.clear();
         txtStatus.getItems().clear();
         txtStudentID.getItems().clear();
         txtInstructorID.getItems().clear();
-        txtStatus.getSelectionModel().clearSelection();
-        txtStudentID.getSelectionModel().clearSelection();
+        txtStatus.setValue(null);
+        txtStudentID.setValue(null);
     }
     private void setupTableColumns(){
         colLessonID.setCellValueFactory(new PropertyValueFactory<>("lesson_id"));

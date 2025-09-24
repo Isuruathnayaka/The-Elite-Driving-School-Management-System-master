@@ -49,6 +49,25 @@ public class LessonScheduleDAOImpl implements LessonScheduleDAO {
             session.close();
         }
     }
+    @Override
+    public boolean delete(String lessonId) {
+        try (Session session = factoryConfiguration.getSession()) {
+            Transaction tx = session.beginTransaction();
+
+            Lesson lesson = session.get(Lesson.class, lessonId); // find by ID
+            if (lesson != null) {
+                session.delete(lesson);
+                tx.commit();
+                return true;
+            }
+
+            tx.rollback();
+            return false;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 
     @Override
     public PaymentDTO findById(String paymentId) {

@@ -19,4 +19,6 @@ public interface LessonScheduleDAO extends CrudDAO<Lesson> {
     Instructor findInstructorById(String instructorId);
 
     Course findCourseById(String courseId);
+
+    boolean delete(String lessonId);
 }

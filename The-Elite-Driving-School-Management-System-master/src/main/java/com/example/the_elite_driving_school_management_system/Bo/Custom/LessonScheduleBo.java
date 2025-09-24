@@ -20,4 +20,5 @@ public interface LessonScheduleBo extends CrudBo<LessonDTO> {
   String getInstructorIdByCourse(String courseId);
 
   List<LessonDTO> getAllLessons();
+  boolean delete(String lessonId);
 }

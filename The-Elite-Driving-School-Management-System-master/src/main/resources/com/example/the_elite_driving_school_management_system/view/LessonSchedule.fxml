@@ -15,7 +15,7 @@
 
 <AnchorPane prefHeight="543.0" prefWidth="1354.0" style="-fx-background-color: #6654b3;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.the_elite_driving_school_management_system.Controller.LessonScheduleController">
     <children>
-        <AnchorPane fx:id="ANCCourse" layoutX="10.0" layoutY="10.0" prefHeight="523.0" prefWidth="1336.0" style="-fx-background-color: #fff; -fx-border-radius: 40; -fx-background-radius: 20;">
+        <AnchorPane fx:id="ANCLesson" layoutX="10.0" layoutY="10.0" prefHeight="523.0" prefWidth="1336.0" style="-fx-background-color: #fff; -fx-border-radius: 40; -fx-background-radius: 20;">
             <children>
                 <TableView fx:id="table" layoutX="6.0" layoutY="129.0" prefHeight="166.0" prefWidth="1325.0">
                     <columns>
@@ -37,7 +37,7 @@
                 </Label>
                 <Line endX="1232.0" endY="-7.0" layoutX="105.0" layoutY="81.0" opacity="0.15" startX="-115.0" startY="-7.0" />
                 <Button fx:id="btnSheduleBtn" layoutX="1194.0" layoutY="85.0" mnemonicParsing="false" onAction="#btnSheduleBtn" prefHeight="25.0" prefWidth="123.0" style="-fx-background-color: #6654b3; -fx-background-radius: 30;" text=" +     Shedule" textFill="WHITE" />
-                <AnchorPane fx:id="addCourseANC" layoutX="5.0" layoutY="164.0" prefHeight="359.0" prefWidth="1338.0" style="-fx-background-color: #fff; -fx-background-radius: 20;" visible="false">
+                <AnchorPane fx:id="addLessonANC" layoutX="5.0" layoutY="86.0" prefHeight="437.0" prefWidth="1338.0" style="-fx-background-color: #fff; -fx-background-radius: 20;" visible="false">
                     <children>
                         <Label layoutX="24.0" layoutY="18.0" text="Lesson Id">
                             <font>

@@ -49,8 +49,33 @@ public class LessonScheduleBoImpl implements LessonScheduleBo {
 
     @Override
     public boolean update(LessonDTO dto) {
-        return false;
+        try {
+            // Fetch related entities (same as in save)
+            Student student = lessonScheduleDAO.findStudentById(dto.getStudentId());
+            Instructor instructor = lessonScheduleDAO.findInstructorById(dto.getInstructorId());
+            Course course = lessonScheduleDAO.findCourseById(dto.getCourseId());
+
+            // Map DTO -> Entity
+            Lesson lesson = MapUtil.toEntity(dto, student, instructor, course);
+
+            // Update entity
+            return lessonScheduleDAO.update(lesson);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
+    @Override
+    public boolean delete(String lessonId) {
+        try {
+            return lessonScheduleDAO.delete(lessonId);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
 
     @Override
     public String generateNewLessonId() {
