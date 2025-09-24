@@ -20,16 +20,14 @@
                 <TableView fx:id="table" layoutX="6.0" layoutY="129.0" prefHeight="166.0" prefWidth="1325.0">
                     <columns>
                         <TableColumn fx:id="colLessonID" prefWidth="65.0" text="Lesson Id" />
-                        <TableColumn fx:id="colLessonTitle" prefWidth="142.0" text="Lesson Title" />
-                        <TableColumn fx:id="colDuration" prefWidth="132.0" text="Duration" />
+                        <TableColumn fx:id="colLessonTitle" prefWidth="154.0" text="Lesson Title" />
+                        <TableColumn fx:id="colDuration" prefWidth="145.0" text="Duration" />
                         <TableColumn fx:id="colCourseId" prefWidth="144.0" text="Course Id" />
-                        <TableColumn fx:id="colTime" minWidth="0.0" prefWidth="140.0" text="Time" />
-                  <TableColumn fx:id="colDate" minWidth="0.0" prefWidth="116.0" text="Date" />
-                  <TableColumn fx:id="colStudentID" minWidth="0.0" prefWidth="96.0" text="Student Id" />
-                  <TableColumn fx:id="colStudentName" minWidth="0.0" prefWidth="177.0" text="Student Name" />
-                  <TableColumn fx:id="colInstructorId" minWidth="0.0" prefWidth="90.0" text="Instructor Id" />
-                  <TableColumn fx:id="colInstructorName" minWidth="0.0" prefWidth="121.0" text="Instructor Name" />
-                  <TableColumn fx:id="colStatus" minWidth="0.0" prefWidth="101.0" text="Status" />
+                        <TableColumn fx:id="colTime" minWidth="0.0" prefWidth="141.0" text="Time" />
+                  <TableColumn fx:id="colDate" minWidth="0.0" prefWidth="133.0" text="Date" />
+                  <TableColumn fx:id="colStudentID" minWidth="0.0" prefWidth="147.0" text="Student Id" />
+                  <TableColumn fx:id="colInstructorId" minWidth="0.0" prefWidth="187.0" text="Instructor Id" />
+                  <TableColumn fx:id="colStatus" minWidth="0.0" prefWidth="208.0" text="Status" />
                     </columns>
                 </TableView>
                 <Label layoutX="29.0" layoutY="29.0" text="Lesson Shedule">
@@ -39,7 +37,7 @@
                 </Label>
                 <Line endX="1232.0" endY="-7.0" layoutX="105.0" layoutY="81.0" opacity="0.15" startX="-115.0" startY="-7.0" />
                 <Button fx:id="btnSheduleBtn" layoutX="1194.0" layoutY="85.0" mnemonicParsing="false" onAction="#btnSheduleBtn" prefHeight="25.0" prefWidth="123.0" style="-fx-background-color: #6654b3; -fx-background-radius: 30;" text=" +     Shedule" textFill="WHITE" />
-                <AnchorPane fx:id="addCourseANC" layoutX="5.0" layoutY="164.0" prefHeight="359.0" prefWidth="1338.0" style="-fx-background-color: #fff; -fx-background-radius: 20;">
+                <AnchorPane fx:id="addCourseANC" layoutX="5.0" layoutY="164.0" prefHeight="359.0" prefWidth="1338.0" style="-fx-background-color: #fff; -fx-background-radius: 20;" visible="false">
                     <children>
                         <Label layoutX="24.0" layoutY="18.0" text="Lesson Id">
                             <font>

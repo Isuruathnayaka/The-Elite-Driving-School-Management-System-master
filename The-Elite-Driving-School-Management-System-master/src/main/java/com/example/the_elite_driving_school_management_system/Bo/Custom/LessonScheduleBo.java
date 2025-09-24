@@ -18,4 +18,6 @@ public interface LessonScheduleBo extends CrudBo<LessonDTO> {
   List<String> getStudentIdsByCourse(String courseId);
 
   String getInstructorIdByCourse(String courseId);
+
+  List<LessonDTO> getAllLessons();
 }

@@ -166,7 +166,7 @@ public class MapUtil {
                 lesson.getName(),
                 lesson.getDuration(),
                 lesson.getDate(),
-                lesson.getTime(),
+                lesson.getTime().toLocalTime(),
                 lesson.getStatus(),
                 (lesson.getStudent() != null) ? lesson.getStudent().getId() : null,
                 (lesson.getInstructor() != null) ? lesson.getInstructor().getId() : null,

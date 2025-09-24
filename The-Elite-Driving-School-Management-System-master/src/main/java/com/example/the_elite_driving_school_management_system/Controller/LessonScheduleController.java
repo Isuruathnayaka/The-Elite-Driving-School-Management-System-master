@@ -4,16 +4,24 @@ package com.example.the_elite_driving_school_management_system.Controller;
 import com.example.the_elite_driving_school_management_system.Bo.BOFactory;
 import com.example.the_elite_driving_school_management_system.Bo.Custom.LessonScheduleBo;
 import com.example.the_elite_driving_school_management_system.Bo.Custom.PaymentBo;
+import com.example.the_elite_driving_school_management_system.DTO.CourseDTO;
 import com.example.the_elite_driving_school_management_system.DTO.LessonDTO;
+import com.example.the_elite_driving_school_management_system.TM.CourseTM;
+import com.example.the_elite_driving_school_management_system.TM.LessonTM;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 
 import java.net.URL;
 import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -93,6 +101,9 @@ public class LessonScheduleController implements Initializable {
                 loadStudentsAndInstructor();
             }
         });
+        setupTableColumns();
+        loadTableData();
+
 
 
     }
@@ -108,7 +119,7 @@ public class LessonScheduleController implements Initializable {
         String instructorID = txtInstructorID.getSelectionModel().getSelectedItem().toString();
         boolean isValidName = lessonName.matches(namePattern);
         if (isValidName){
-            return new LessonDTO(lessonID,lessonName,duration,courseID,date,time,status,studentID,instructorID);
+            return new LessonDTO(lessonID,lessonName,duration,courseID,date, LocalTime.parse(time),status,studentID,instructorID);
         }
         return null;
 
@@ -151,6 +162,27 @@ public class LessonScheduleController implements Initializable {
             new Alert(Alert.AlertType.ERROR, "Failed to load students or instructor").show();
         }
     }
+    private void loadTableData(){
+        ArrayList<LessonDTO> allLessons = (ArrayList<LessonDTO>) lessonBO.getAllLessons();
+        ObservableList<LessonTM> tableList = FXCollections.observableArrayList();
+
+        if (allLessons != null) {
+            for (LessonDTO lessonDTO : allLessons) {
+                tableList.add(new LessonTM(
+                        lessonDTO.getLessonId(),
+                        lessonDTO.getLessonTitle(),
+                        lessonDTO.getDuration(),
+                        lessonDTO.getDate(),
+                        lessonDTO.getTime(),
+                        lessonDTO.getCourseId(),
+                        lessonDTO.getInstructorId(),
+                        lessonDTO.getStudentId(),
+                        lessonDTO.getStatus()
+                ));
+            }
+        }
+        table.setItems(tableList);
+    }
     private String generateNewId() {
         try {
             String id = String.valueOf(lessonBO.generateNewLessonId());
@@ -170,5 +202,20 @@ public class LessonScheduleController implements Initializable {
         txtInstructorID.getItems().clear();
         txtStatus.getSelectionModel().clearSelection();
         txtStudentID.getSelectionModel().clearSelection();
+    }
+    private void setupTableColumns(){
+        colLessonID.setCellValueFactory(new PropertyValueFactory<>("lesson_id"));
+        colLessonTitle.setCellValueFactory(new PropertyValueFactory<>("lesson_name"));
+        colDuration.setCellValueFactory(new PropertyValueFactory<>("duration"));
+        colCourseId.setCellValueFactory(new PropertyValueFactory<>("course_id"));
+        colTime.setCellValueFactory(new PropertyValueFactory<>("lesson_time"));
+        colDate.setCellValueFactory(new PropertyValueFactory<>("lesson_date"));
+        colStudentID.setCellValueFactory(new PropertyValueFactory<>("student_id"));
+        colInstructorId.setCellValueFactory(new PropertyValueFactory<>("instructor_id"));
+        colStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
+
+
+
+
     }
 }

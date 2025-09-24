@@ -2,6 +2,7 @@ package com.example.the_elite_driving_school_management_system.Bo.Custom.Impl;
 
 import com.example.the_elite_driving_school_management_system.Bo.Custom.LessonScheduleBo;
 import com.example.the_elite_driving_school_management_system.Bo.MapUtil;
+import com.example.the_elite_driving_school_management_system.Config.FactoryConfiguration;
 import com.example.the_elite_driving_school_management_system.DAO.Custom.LessonScheduleDAO;
 import com.example.the_elite_driving_school_management_system.DTO.LessonDTO;
 import com.example.the_elite_driving_school_management_system.DTO.PaymentDTO;
@@ -9,11 +10,16 @@ import com.example.the_elite_driving_school_management_system.Entity.Course;
 import com.example.the_elite_driving_school_management_system.Entity.Instructor;
 import com.example.the_elite_driving_school_management_system.Entity.Lesson;
 import com.example.the_elite_driving_school_management_system.Entity.Student;
+import org.hibernate.Session;
 
+import java.util.ArrayList;
 import java.util.List;
+
+
 
 public class LessonScheduleBoImpl implements LessonScheduleBo {
     private final LessonScheduleDAO lessonScheduleDAO;
+    private final FactoryConfiguration factoryConfiguration=FactoryConfiguration.getInstance();
 
     public LessonScheduleBoImpl(LessonScheduleDAO lessonScheduleDAO) {
         this.lessonScheduleDAO = lessonScheduleDAO;
@@ -69,6 +75,30 @@ public class LessonScheduleBoImpl implements LessonScheduleBo {
             e.printStackTrace();
             return "";
         }
+    }
+
+    @Override
+    public List<LessonDTO> getAllLessons() {
+        List<LessonDTO> lessonDTOList = new ArrayList<>();
+        try (Session session = factoryConfiguration.getSession()) {
+            List<Lesson> lessons = session.createQuery("FROM Lesson", Lesson.class).list();
+            for (Lesson l : lessons) {
+                lessonDTOList.add(new LessonDTO(
+                        l.getId(),
+                        l.getName(),
+                        l.getDate(),
+                        l.getCourse(),
+                        l.getInstructor(),
+                        l.getDuration(),
+                        l.getStatus(),
+                        l.getStudent(),
+                        l.getTime().toLocalTime()
+                ));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return lessonDTOList;
     }
 
 
