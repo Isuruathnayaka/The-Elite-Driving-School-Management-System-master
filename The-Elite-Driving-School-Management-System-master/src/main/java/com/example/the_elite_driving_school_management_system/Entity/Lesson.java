@@ -1,19 +1,23 @@
 package com.example.the_elite_driving_school_management_system.Entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import java.sql.Time;
-import java.util.Date;
+import java.time.LocalDate;
 
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "lesson")
 public class Lesson {
 
     @Id
-    @Column(name = "lesson_id", nullable = false)
+    @Column(name = "lesson_id", nullable = false, unique = true)
     private String id;
 
     @Column(name = "lesson_name", nullable = false)
@@ -23,7 +27,7 @@ public class Lesson {
     private String duration;
 
     @Column(name = "lesson_date", nullable = false)
-    private Date date;
+    private LocalDate date;
 
     @Column(name = "lesson_time", nullable = false)
     private Time time;
@@ -44,8 +48,17 @@ public class Lesson {
     private Course course;
 
 
+    public Lesson(String lessonId, String lessonTitle, String lessonDescription, Time startTime, LocalDate date, Course courseId, Student studentId, Instructor instructorId, String status) {
+        this.id = lessonId;
+        this.name = lessonTitle;
+        this.duration = lessonDescription;
+        this.date = date;
+        this.time=startTime;
+        this.status=status;
+        this.course=courseId;
+        this.student=studentId;
+        this.instructor=instructorId;
 
-    public Lesson() {}
 
-
+    }
 }

@@ -183,7 +183,7 @@ public class PaymentController implements Initializable {
             return null;
         }
 
-        // ✅ Use the regex constants
+        //  Use the regex constants
         boolean isValidStudentId = studentIdText.matches(studentIdPattern);
         boolean isValidCourseId = courseIdText != null && courseIdText.matches(courseIdPattern);
 

@@ -158,4 +158,39 @@ public class MapUtil {
                 dto.getStatus()
         );
     }
+    public static LessonDTO toDTO(Lesson lesson) {
+        if (lesson == null) return null;
+
+        return new LessonDTO(
+                lesson.getId(),
+                lesson.getName(),
+                lesson.getDuration(),
+                lesson.getDate(),
+                lesson.getTime(),
+                lesson.getStatus(),
+                (lesson.getStudent() != null) ? lesson.getStudent().getId() : null,
+                (lesson.getInstructor() != null) ? lesson.getInstructor().getId() : null,
+                (lesson.getCourse() != null) ? lesson.getCourse().getId() : null
+        );
+    }
+
+    // Convert DTO -> Entity
+        public static Lesson toEntity(LessonDTO dto, Student student, Instructor instructor, Course course) {
+        if (dto == null) return null;
+
+        Lesson lesson = new Lesson();
+        lesson.setId(dto.getId());
+        lesson.setName(dto.getName());
+        lesson.setDuration(dto.getDuration());
+        lesson.setDate(dto.getDate());
+        lesson.setTime(dto.getTime());
+        lesson.setStatus(dto.getStatus());
+        lesson.setStudent(student);
+        lesson.setInstructor(instructor);
+        lesson.setCourse(course);
+
+        return lesson;
+    }
+
+
 }

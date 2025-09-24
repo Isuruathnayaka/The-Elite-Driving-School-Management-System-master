@@ -22,7 +22,8 @@ public class BOFactory {
         STUDENT,
         INSTRUCTOR,
         COURSE,
-        PAYMENT
+        PAYMENT,
+        LESSON
     }
 
     public SuperBO getBO(BOType boType) {
@@ -46,6 +47,9 @@ public class BOFactory {
                         case PAYMENT:
                             PaymentDAO paymentDAO=(PaymentDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOType.PAYMENT);
                             return new PaymentBoImpl(paymentDAO);
+                           case LESSON:
+                                LessonScheduleDAO lessonScheduleDAO=(LessonScheduleDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOType.LESSON);
+                                return new LessonScheduleBoImpl(lessonScheduleDAO);
 
 
 
