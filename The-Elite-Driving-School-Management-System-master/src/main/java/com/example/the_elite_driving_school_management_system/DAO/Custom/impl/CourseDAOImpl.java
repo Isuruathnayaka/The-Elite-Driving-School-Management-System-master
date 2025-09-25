@@ -170,6 +170,20 @@ public class CourseDAOImpl implements CourseDAO {
         return dto;
     }
 
+    @Override
+    public int getCourseCount() {
+        try (Session session = factoryConfiguration.getSession()) {
+            Long count = session.createQuery(
+                    "SELECT COUNT(s) FROM Course s", Long.class
+            ).uniqueResult();
+
+            return count != null ? count.intValue() : 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
 }
 
 

@@ -20,4 +20,6 @@ public interface InstructorBo extends CrudBo<InstructorDTO> {
     boolean delete(String id);
 
     InstructorDTO findByName(String courseName);
+
+    int getInstructorCount();
 }

@@ -12,12 +12,10 @@ public class Initializer extends Application {
     public void start(Stage stage) throws Exception {
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/the_elite_driving_school_management_system/view/LoginPage.fxml"));
-
         Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle("The Elite Driving School Management System");
         stage.setScene(scene);
         stage.setResizable(false);
-
         stage.show();
     }
 

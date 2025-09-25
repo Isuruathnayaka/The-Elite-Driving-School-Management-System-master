@@ -53,6 +53,11 @@ public class InstructorBoImpl implements InstructorBo {
         return null;
     }
 
+    @Override
+    public int getInstructorCount() {
+        return instructorDAO.getInstructorCount();
+    }
+
 
     @Override
     public boolean update(InstructorDTO dto) {

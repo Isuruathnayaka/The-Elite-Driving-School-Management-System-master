@@ -18,4 +18,6 @@ public interface CourseBo extends CrudBo<CourseDTO> {
     String getCourseFeeByCourseId(String courseId) throws SystemException;
 
     CourseDTO findById(String id);
+
+    int getCourseCount();
 }

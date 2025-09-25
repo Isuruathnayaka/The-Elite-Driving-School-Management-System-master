@@ -96,5 +96,10 @@ public class CourseBoImpl implements CourseBo {
         return courseDAO.findById(id);
     }
 
+    @Override
+    public int getCourseCount() {
+        return courseDAO.getCourseCount();
+    }
+
 
 }

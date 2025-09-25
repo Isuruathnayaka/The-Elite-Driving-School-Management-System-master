@@ -20,4 +20,6 @@ public interface CourseDAO extends CrudDAO<Course> {
     List<String> getCourseFeeByCourseId(String courseId);
 
     CourseDTO findById(String id);
+
+    int getCourseCount();
 }

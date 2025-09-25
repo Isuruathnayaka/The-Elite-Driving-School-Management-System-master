@@ -9,7 +9,7 @@ import javax.management.relation.Role;
 @Table(name="login")
 public class Login {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // AUTO-INCREMENT
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", updatable = false, nullable = false)
     private Long id;
     @Column (name = "name", nullable = false)
@@ -21,7 +21,6 @@ public class Login {
 
     @Column(name = "role",nullable = false)
     private String role;
-
 
     public Login() {
 
