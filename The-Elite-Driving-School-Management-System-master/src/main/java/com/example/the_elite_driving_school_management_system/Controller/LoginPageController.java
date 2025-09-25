@@ -43,56 +43,52 @@ public class LoginPageController implements Initializable {
     String emailPattern = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$";
 
    // LoginBo loginBo= (LoginBo) BOFactory.getInstance().getBO(BOFactory.BOType.LOGIN);
-    public void btnSignIn(ActionEvent actionEvent) throws IOException {
+   public void btnSignIn(ActionEvent actionEvent) throws IOException {
+       String username = signInUserName.getText().trim();
+       String password = signInPassword.getText().trim();
 
-//
-//        String userName = signInUserName.getText();
-//        String password = signInPassword.getText();
-//        if (userName.equals("admin") && password.equals("admin")) {
-//
-//            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/the_elite_driving_school_management_system/view/Dashboard.fxml"));
-//            Parent root = loader.load();
-//            Stage stage = new Stage();
-//            stage.setScene(new Scene(root));
-//            stage.setTitle("Dashboard");
-//            stage.show();
-//            // Close current window
-//            Stage currentStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-//            currentStage.close();
-//        }
-        String username = signInUserName.getText().trim();      String password = signInPassword.getText().trim();
-        if (username.isEmpty() || password.isEmpty()) {
-            new Alert(Alert.AlertType.WARNING, "Please enter username and password").show();
-            return;
-        }
+       if (username.isEmpty() || password.isEmpty()) {
+           new Alert(Alert.AlertType.WARNING, "Please enter username and password").show();
+           return;
+       }
 
-        try {
+       try {
+           String role = settingsBo.validateLoginDetails(username, password);
 
-            boolean isValid = settingsBo.validateLoginDetails(username,password);
+           if (role == null) {
+               new Alert(Alert.AlertType.ERROR, "Invalid username or password").show();
+               return;
+           }
 
-            if (isValid) {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/the_elite_driving_school_management_system/view/Dashboard.fxml"));
-                Parent root = loader.load();
-                Stage stage = new Stage();
-                stage.setScene(new Scene(root));
-                stage.setTitle("Dashboard");
-                stage.show();
-                // Close current window
-                Stage currentStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-                currentStage.close();
+           switch (role.toUpperCase()) {
+               case "ADMIN":
+                   uiLoad("/com/example/the_elite_driving_school_management_system/view/Dashboard.fxml", actionEvent);
+                   break;
+               case "USER":
+                   uiLoad("/com/example/the_elite_driving_school_management_system/view/UserDashboard.fxml", actionEvent);
+                   break;
+               default:
+                   new Alert(Alert.AlertType.ERROR, "Unknown role").show();
+           }
 
-            } else {
-                new Alert(Alert.AlertType.ERROR, "Invalid username or password").show();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            new Alert(Alert.AlertType.ERROR, "Error during login").show();
-        }
+       } finally {
+           // nothing needed here
+       }
+   }
 
-        // Clear input fields
-        signInUserName.clear();
-        signInPassword.clear();
+    private void uiLoad(String path, ActionEvent actionEvent) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(path));
+        Parent root = loader.load();
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.setTitle("Dashboard");
+        stage.show();
+
+        // Close current login window
+        Stage currentStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        currentStage.close();
     }
+
 
 
 

@@ -3,7 +3,7 @@ package com.example.the_elite_driving_school_management_system.Entity;
 
 import jakarta.persistence.*;
 
-import java.util.UUID;
+import javax.management.relation.Role;
 
 @Entity
 @Table(name="login")
@@ -18,6 +18,7 @@ public class Login {
     private String username;
     @Column(name = "password",nullable =false,unique = true)
     private String password;
+
     @Column(name = "role",nullable = false)
     private String role;
 
@@ -39,6 +40,8 @@ public class Login {
         this.password = password;
         this.role = role;
     }
+
+
 
     public String getRole() {
         return role;

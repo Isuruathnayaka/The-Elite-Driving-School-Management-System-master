@@ -29,46 +29,42 @@ public class SettingsBoImpl implements SettingsBo {
         return false;
     }
 
+
     @Override
-    public boolean validateLoginDetails(String username, String password) {
-        Session session = null;
+    public String validateLoginDetails(String username, String password) {
+        Session session = factoryConfiguration.getSession();
         Transaction transaction = null;
-        boolean isValid = false;
 
         try {
-            session = factoryConfiguration.getSessionFactory().openSession();
             transaction = session.beginTransaction();
 
-            // Use HQL instead of get()
-            String hql = "FROM Login l WHERE l.username = :username";
-            Login login = session.createQuery(hql, Login.class)
+            Login login = session.createQuery("FROM Login WHERE username = :username", Login.class)
                     .setParameter("username", username)
                     .uniqueResult();
 
-            if (login != null) {
-                String hashedPassword = login.getPassword();
+            if (login == null) {
+                return null; // user not found
+            }
 
-                // Hash old plain password if needed
-                if (hashedPassword == null || !hashedPassword.startsWith("$2")) {
-                    hashedPassword = PasswordUtil.hashPassword(hashedPassword);
-                    login.setPassword(hashedPassword);
-                    session.update(login);
-                }
+            String hashedPassword = login.getPassword();
 
-                // Check password while session is open
-                isValid = PasswordUtil.checkPassword(password, hashedPassword);
+            if (!PasswordUtil.checkPassword(password, hashedPassword)) {
+                return null; // wrong password
             }
 
             transaction.commit();
-        } catch (Exception e) {
-            if (transaction != null && transaction.isActive()) transaction.rollback();
-            e.printStackTrace();
-        } finally {
-            if (session != null && session.isOpen()) session.close();
-        }
+            return login.getRole(); // return "ADMIN" or "USER"
 
-        return isValid;
+        } catch (Exception e) {
+            if (transaction != null) transaction.rollback();
+            e.printStackTrace();
+            return null;
+        } finally {
+            session.close();
+        }
     }
+
+
 
 
 

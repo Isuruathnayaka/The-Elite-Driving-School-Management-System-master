@@ -15,6 +15,7 @@ module com.example.the_elite_driving_school_management_system {
     requires jbcrypt;
     requires static lombok;
     requires jakarta.transaction;
+    requires java.management;
 
     // Open entity packages for Hibernate reflection
     opens com.example.the_elite_driving_school_management_system.Entity to org.hibernate.orm.core;
