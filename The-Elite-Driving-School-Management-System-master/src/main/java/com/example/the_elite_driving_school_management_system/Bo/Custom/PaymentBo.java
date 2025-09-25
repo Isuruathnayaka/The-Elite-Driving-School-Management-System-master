@@ -21,4 +21,5 @@ public interface PaymentBo extends CrudDAO<PaymentDTO> {
 
     List<String> getUnpaidCoursesByStudent(String studentId);
 
+    boolean isPaymentExists(String paymentId);
 }

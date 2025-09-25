@@ -28,6 +28,7 @@ import java.util.ResourceBundle;
 
 public class LessonScheduleController implements Initializable {
     private final LessonScheduleBo lessonBO=(LessonScheduleBo) BOFactory.getInstance().getBO(BOFactory.BOType.LESSON);
+    private final PaymentBo paymentBo=(PaymentBo) BOFactory.getInstance().getBO(BOFactory.BOType.PAYMENT);
     private final String namePattern = "^[A-Za-z ]+$";
 
     public AnchorPane ANCCourse;
@@ -124,7 +125,7 @@ public class LessonScheduleController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        //ANCValidationView.setVisible(true);
+        ANCValidationView.setVisible(true);
 
         refresh();
         ANCLesson.setOnMouseClicked(mouseEvent -> {
@@ -181,16 +182,29 @@ public class LessonScheduleController implements Initializable {
     }
 
     public void btnCheckValidation(ActionEvent actionEvent) {
+        String paymentId = txtStudentIdValidate.getText().trim();
 
-        String studentValidateID = txtStudentIdValidate.getText();
-        if(studentValidateID.matches("^S\\d{3}$")) {
+        // Check format first (optional, if you want "P001" style validation)
+        if (!paymentId.matches("^P\\d{3}$")) {
+            new Alert(Alert.AlertType.ERROR, "Invalid Payment ID format! (e.g., P001)").show();
+            return;
+        }
 
-            ANCValidationView.setVisible(false);
+        try {
+            // Call your PaymentModel or DAO to check if this ID exists
+            boolean exists =paymentBo.isPaymentExists(paymentId);
 
-        } else {
-            new Alert(Alert.AlertType.ERROR, "Invalid Input OR Student Not Pay for the Course").show();
+            if (exists) {
+                ANCValidationView.setVisible(false); // ✅ Payment found
+            } else {
+                new Alert(Alert.AlertType.ERROR, "Payment not found for this ID!").show();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            new Alert(Alert.AlertType.ERROR, "Error while checking payment!").show();
         }
     }
+
     private void loadStudentsAndInstructor() {
         String courseId = txtCourseID.getText().trim();
 

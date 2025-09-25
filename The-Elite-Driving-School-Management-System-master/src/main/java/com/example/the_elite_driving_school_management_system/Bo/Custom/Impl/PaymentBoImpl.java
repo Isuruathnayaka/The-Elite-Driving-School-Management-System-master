@@ -87,4 +87,9 @@ public class PaymentBoImpl implements PaymentBo, SuperBO {
     public List<String> getUnpaidCoursesByStudent(String studentId) {
         return paymentDAO.getUnpaidCoursesByStudent(studentId);
     }
+
+    @Override
+    public boolean isPaymentExists(String paymentId) {
+        return paymentDAO.isPaymentExists(paymentId);
+    }
 }

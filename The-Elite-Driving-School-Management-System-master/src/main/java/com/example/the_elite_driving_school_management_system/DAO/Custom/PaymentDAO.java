@@ -17,4 +17,6 @@ public interface PaymentDAO extends CrudDAO<Payment> {
 
 
     List<String> getUnpaidCoursesByStudent(String studentId);
+
+    boolean isPaymentExists(String paymentId);
 }

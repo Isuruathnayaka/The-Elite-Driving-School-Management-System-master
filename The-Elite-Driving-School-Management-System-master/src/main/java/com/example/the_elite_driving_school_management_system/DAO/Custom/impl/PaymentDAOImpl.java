@@ -127,5 +127,19 @@ public class PaymentDAOImpl implements PaymentDAO {
         }
     }
 
+    @Override
+    public boolean isPaymentExists(String paymentId) {
+        try (Session session = factoryConfiguration.getSession()) {
+            String hql = "SELECT COUNT(p) FROM Payment p WHERE p.paymentId = :paymentId";
+            Long count = session.createQuery(hql, Long.class)
+                    .setParameter("paymentId", paymentId)
+                    .uniqueResult();
+            return count != null && count > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
 
 }
