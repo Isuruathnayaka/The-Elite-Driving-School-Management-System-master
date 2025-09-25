@@ -58,7 +58,7 @@
                     </image>
                 </ImageView>
                 <Button fx:id="btnUpdateUsernameorPassword" layoutX="1559.0" layoutY="303.0" mnemonicParsing="false" onAction="#btnUpdateUsernameorPassword" prefHeight="25.0" prefWidth="214.0" style="-fx-background-color: #6654b3; -fx-background-radius: 30;" text=" +     Update Username or Password" textFill="WHITE" visible="false" />
-                <Button fx:id="btnDelete" layoutX="1431.0" layoutY="303.0" mnemonicParsing="false" onAction="#btnDelete" prefHeight="25.0" prefWidth="165.0" style="-fx-background-color: #6654b3; -fx-background-radius: 30;" text="-     Delete User or Admin" textFill="WHITE" visible="false" />
+                <Button fx:id="btnDelete" layoutX="1364.0" layoutY="302.0" mnemonicParsing="false" onAction="#btnDelete" prefHeight="25.0" prefWidth="165.0" style="-fx-background-color: #6654b3; -fx-background-radius: 30;" text="-     Delete User or Admin" textFill="WHITE" />
             <Label layoutX="734.0" layoutY="82.0" text="Access Contorl Panel">
                <font>
                   <Font name="System Bold" size="23.0" />

@@ -14,4 +14,10 @@ public class SettingsTM {
     private String userName;
     private String password;
     private String role;
+
+    public SettingsTM(String name, String userName, String role) {
+        Name = name;
+        this.userName = userName;
+        this.role = role;
+    }
 }

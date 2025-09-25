@@ -10,6 +10,9 @@ import com.example.the_elite_driving_school_management_system.Util.PasswordUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class SettingsBoImpl implements SettingsBo {
     private final FactoryConfiguration factoryConfiguration=FactoryConfiguration.getInstance();
     private final SettingsDAO settingsDAO;
@@ -26,7 +29,9 @@ public class SettingsBoImpl implements SettingsBo {
 
     @Override
     public boolean update(SettingsDTO dto) {
-        return false;
+        String encriptedPasword= PasswordUtil.hashPassword(dto.getPassword());
+        dto.setPassword(encriptedPasword);
+        return settingsDAO.update(MapUtil.toEntity(dto));
     }
 
 
@@ -64,9 +69,25 @@ public class SettingsBoImpl implements SettingsBo {
         }
     }
 
+    @Override
+    public List<SettingsDTO> getAllCourses() {
+        List<SettingsDTO> usersDTOList = new ArrayList<>();
+        try (Session session = factoryConfiguration.getSession()) {
+            List<Login> users = session.createQuery("FROM Login ", Login.class).list();
+            for (Login l : users) {
+                usersDTOList.add(new SettingsDTO(
+                        l.getFullName(),
+                        l.getUserName(),
+                        l.getRole()
+                ));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return usersDTOList;
+    }
+
+    }
 
 
 
-
-
-}

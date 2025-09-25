@@ -14,4 +14,10 @@ public class SettingsDTO {
     private String userName;
     private String password;
     private String role;
+
+    public SettingsDTO(String fullName, String userName, String role) {
+        Name = fullName;
+        this.userName = userName;
+        this.role = role;
+    }
 }

@@ -28,19 +28,25 @@ public class SettingsDAOImpl implements SettingsDAO {
     @Override
     public boolean update(Login dto) {
         Transaction transaction = null;
-        try (Session session = factoryConfiguration.getSession()) {
+
+        try (Session session = factoryConfiguration.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
 
-            session.update(dto); // update entity
-            transaction.commit();
+            session.merge(dto);
 
+            transaction.commit();
             return true;
         } catch (Exception e) {
-            if (transaction != null) transaction.rollback();
+            if (transaction != null && transaction.getStatus().canRollback()) {
+                transaction.rollback();
+            }
             e.printStackTrace();
             return false;
         }
     }
+
+
+
 
     @Override
     public Login findBy(String password) {
