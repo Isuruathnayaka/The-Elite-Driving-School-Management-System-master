@@ -17,7 +17,8 @@ public class DAOFactory {
         INSTRUCTOR,
         COURSE,
         PAYMENT,
-        LESSON
+        LESSON,
+        SETTINGS
     }
     public SuperDAO getDAO(DAOType type) {
         switch (type) {
@@ -33,6 +34,8 @@ public class DAOFactory {
                                 return new PaymentDAOImpl();
                                 case LESSON:
                                     return new LessonScheduleDAOImpl();
+                                    case SETTINGS:
+                                        return new SettingsDAOImpl();
         }
         return null;
     }

@@ -10,13 +10,13 @@ import java.util.List;
 public class MapUtil {
 
     // ==================== Login ====================
-    public static Login toEntity(LoginDTO dto) {
-        return new Login(
-                dto.getUsername(),
-                dto.getPassword(),
-                dto.getEmail()
-        );
-    }
+//    public static Login toEntity(LoginDTO dto) {
+//        return new Login(
+//                dto.getUsername(),
+//                dto.getPassword(),
+//                dto.getEmail()
+//        );
+//    }
 
     // ==================== Student ====================
     public static Student toEntity(StudentDTO dto, Session session) {
@@ -192,5 +192,23 @@ public class MapUtil {
         return lesson;
     }
 
+
+    public static Login toEntity(SettingsDTO dto) {
+        return new Login(
+                dto.getName(),
+                dto.getUserName(),
+                dto.getPassword(),
+                dto.getRole()
+
+        );
+    }
+    public static SettingsDTO toDTO(Login entity) {
+        return new SettingsDTO(
+                entity.getName(),
+                entity.getUserName(),
+                entity.getPassword(),
+                entity.getRole()
+        );
+    }
 
 }

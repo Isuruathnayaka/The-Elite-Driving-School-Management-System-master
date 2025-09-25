@@ -12,21 +12,48 @@ public class Login {
     @GeneratedValue(strategy = GenerationType.IDENTITY) // AUTO-INCREMENT
     @Column(name = "id", updatable = false, nullable = false)
     private Long id;
+    @Column (name = "name", nullable = false)
+    private String fullName;
     @Column(name = "username",updatable = false,nullable = false)
     private String username;
-    @Column(name = "password",nullable =false)
+    @Column(name = "password",nullable =false,unique = true)
     private String password;
-    @Column(name = "email" ,updatable = false,nullable = false,unique = true)
-    private String email;
+    @Column(name = "role",nullable = false)
+    private String role;
+
 
     public Login() {
 
     }
-    public Login(String username, String password, String email) {
+    public Login(String username, String password, String name) {
         this();
+        this.fullName = name;
         this.username = username;
         this.password = password;
-        this.email = email;
+
+    }
+
+    public Login(String name, String userName, String password, String role) {
+        this.fullName = name;
+        this.username = userName;
+        this.password = password;
+        this.role = role;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
     public Long getId() {
@@ -53,11 +80,12 @@ public class Login {
         this.password = password;
     }
 
-    public String getEmail() {
-        return email;
+
+    public String getName() {
+        return fullName;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public String getUserName() {
+        return username;
     }
 }

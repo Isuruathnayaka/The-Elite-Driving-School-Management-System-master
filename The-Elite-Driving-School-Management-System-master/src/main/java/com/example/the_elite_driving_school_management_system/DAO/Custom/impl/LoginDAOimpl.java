@@ -32,13 +32,13 @@ public class LoginDAOimpl implements LoginDAO {
 
 
 
-    @Override
-    public Login findByEmail(String email) {
-       try(Session session = factoryConfiguration.getSession()){
-           return session.createQuery("from Login where email = :email", Login.class).setParameter("email", email).uniqueResult();
-
-        }
-    }
+//    @Override
+//    public Login findByEmail(String email) {
+//       try(Session session = factoryConfiguration.getSession()){
+//           return session.createQuery("from Login where email = :email", Login.class).setParameter("email", email).uniqueResult();
+//
+//        }
+//    }
 
 
 

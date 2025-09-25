@@ -18,19 +18,20 @@ public class BOFactory {
     }
 
     public enum BOType {
-        LOGIN,
+
         STUDENT,
         INSTRUCTOR,
         COURSE,
         PAYMENT,
-        LESSON
+        LESSON,
+        SETTINGS
     }
 
     public SuperBO getBO(BOType boType) {
         switch (boType) {
-            case LOGIN:
-                LoginDAO loginDAO = (LoginDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOType.LOGIN);
-                return new LoginBoImpl(loginDAO);
+//            case LOGIN:
+//                LoginDAO loginDAO = (LoginDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOType.LOGIN);
+//                return new LoginBoImpl(loginDAO);
 
             case STUDENT:
                 StudentDAO studentDAO = (StudentDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOType.STUDENT);
@@ -50,6 +51,9 @@ public class BOFactory {
                            case LESSON:
                                 LessonScheduleDAO lessonScheduleDAO=(LessonScheduleDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOType.LESSON);
                                 return new LessonScheduleBoImpl(lessonScheduleDAO);
+                                case SETTINGS:
+                                    SettingsDAO settingsDAO=(SettingsDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOType.SETTINGS);
+                                    return new SettingsBoImpl(settingsDAO);
 
 
 
