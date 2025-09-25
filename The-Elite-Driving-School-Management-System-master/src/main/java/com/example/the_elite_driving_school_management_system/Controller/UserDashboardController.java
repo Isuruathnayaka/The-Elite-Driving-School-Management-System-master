@@ -16,6 +16,7 @@ public class UserDashboardController implements Initializable {
     public ImageView btnPayment;
     public ImageView btnStudentManage;
     public ImageView btnDashboard;
+    public AnchorPane ANCMainSize;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -24,6 +25,9 @@ public class UserDashboardController implements Initializable {
         AnimationUtil.addHoverAnimation(btnScheduleManagement);
         AnimationUtil.addHoverAnimation(btnPayment);
 
+            navigateTo("/com/example/the_elite_driving_school_management_system/view/MainBoard.fxml",ANCMain);
+
+
 
         buttons();
 
@@ -31,9 +35,13 @@ public class UserDashboardController implements Initializable {
     }
 
     public void buttons(){
+        btnDashboard.setOnMouseClicked(mouseEvent -> {
+            navigateTo("/com/example/the_elite_driving_school_management_system/view/MainBoard.fxml",ANCMain);
+        });
         btnStudentManage.setOnMouseClicked(mouseEvent -> {
             navigateTo("/com/example/the_elite_driving_school_management_system/view/Student.fxml",ANCMain);
         });
+
 
         btnScheduleManagement.setOnMouseClicked(mouseEvent -> {
             navigateTo("/com/example/the_elite_driving_school_management_system/view/LessonSchedule.fxml",ANCMain);

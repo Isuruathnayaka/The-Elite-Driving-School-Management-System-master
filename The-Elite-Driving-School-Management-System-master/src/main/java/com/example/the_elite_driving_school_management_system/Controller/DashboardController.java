@@ -33,12 +33,18 @@ public class DashboardController implements Initializable {
         AnimationUtil.addHoverAnimation(btnPayment);
         AnimationUtil.addHoverAnimation(btnSettings);
 
+        navigateTo("/com/example/the_elite_driving_school_management_system/view/MainBoard.fxml",ANCMain);
+
+
          buttons();
 
 
     }
 
     public void buttons(){
+        btnDashboard.setOnMouseClicked(mouseEvent -> {
+            navigateTo("/com/example/the_elite_driving_school_management_system/view/MainBoard.fxml",ANCMain);
+        });
         btnStudentManage.setOnMouseClicked(mouseEvent -> {
             navigateTo("/com/example/the_elite_driving_school_management_system/view/Student.fxml",ANCMain);
         });

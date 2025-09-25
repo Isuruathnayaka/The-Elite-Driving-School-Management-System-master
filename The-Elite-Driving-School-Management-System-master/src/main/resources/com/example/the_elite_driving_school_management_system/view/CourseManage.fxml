@@ -11,17 +11,17 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="543.0" prefWidth="1354.0" style="-fx-background-color: #6654b3;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.the_elite_driving_school_management_system.Controller.CourseManageController">
+<AnchorPane prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: #6654b3;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.the_elite_driving_school_management_system.Controller.CourseManageController">
    <children>
-      <AnchorPane fx:id="ANCCourse" layoutX="10.0" layoutY="10.0" prefHeight="523.0" prefWidth="1336.0" style="-fx-background-color: #fff; -fx-border-radius: 40; -fx-background-radius: 20;">
+      <AnchorPane fx:id="ANCCourse" layoutX="10.0" layoutY="10.0" prefHeight="1059.0" prefWidth="1818.0" style="-fx-background-color: #fff; -fx-border-radius: 40; -fx-background-radius: 20;">
          <children>
-            <TableView fx:id="table" layoutX="6.0" layoutY="129.0" prefHeight="166.0" prefWidth="1325.0">
+            <TableView fx:id="table" layoutX="6.0" layoutY="129.0" prefHeight="913.0" prefWidth="1853.0">
               <columns>
-                <TableColumn fx:id="colCourseID" prefWidth="63.0" text="Course Id" />
-                <TableColumn fx:id="colCourseName" prefWidth="401.0" text="Course Name" />
-                  <TableColumn fx:id="colCourseDuration" prefWidth="176.0" text="Duration" />
-                  <TableColumn fx:id="colFee" prefWidth="220.0" text="Fee" />
-                  <TableColumn fx:id="colDescription" prefWidth="464.0" text="Description" />
+                <TableColumn fx:id="colCourseID" prefWidth="222.0" text="Course Id" />
+                <TableColumn fx:id="colCourseName" prefWidth="449.0" text="Course Name" />
+                  <TableColumn fx:id="colCourseDuration" prefWidth="291.0" text="Duration" />
+                  <TableColumn fx:id="colFee" prefWidth="377.0" text="Fee" />
+                  <TableColumn fx:id="colDescription" prefWidth="513.0" text="Description" />
               </columns>
             </TableView>
             <Label layoutX="29.0" layoutY="29.0" text="Courses">
@@ -29,9 +29,9 @@
                   <Font name="System Bold" size="23.0" />
                </font>
             </Label>
-            <Line endX="1232.0" endY="-7.0" layoutX="105.0" layoutY="81.0" opacity="0.15" startX="-115.0" startY="-7.0" />
-            <Button fx:id="btnSaveCourse" layoutX="1194.0" layoutY="85.0" mnemonicParsing="false" onAction="#btnsaveACourse" prefHeight="25.0" prefWidth="123.0" style="-fx-background-color: #6654b3; -fx-background-radius: 30;" text=" +     Add a course" textFill="WHITE" />
-            <AnchorPane fx:id="addCourseANC" layoutX="5.0" layoutY="164.0" prefHeight="359.0" prefWidth="1338.0" style="-fx-background-color: #fff; -fx-background-radius: 20;" visible="false">
+            <Line endX="1744.5" endY="-7.0" layoutX="105.0" layoutY="81.0" opacity="0.15" startX="-115.0" startY="-7.0" />
+            <Button fx:id="btnSaveCourse" layoutX="1658.0" layoutY="85.0" mnemonicParsing="false" onAction="#btnsaveACourse" prefHeight="25.0" prefWidth="123.0" style="-fx-background-color: #6654b3; -fx-background-radius: 30;" text=" +     Add a course" textFill="WHITE" />
+            <AnchorPane fx:id="addCourseANC" layoutX="5.0" layoutY="164.0" prefHeight="876.0" prefWidth="1841.0" style="-fx-background-color: #fff; -fx-background-radius: 20;" visible="false">
                <children>
                   <Label layoutX="24.0" layoutY="18.0" text="Course Id">
                      <font>
@@ -57,8 +57,8 @@
                   <Image url="@../images/search.png" />
                </image>
             </ImageView>
-            <Button fx:id="btnEditeCourse" layoutX="1194.0" layoutY="85.0" mnemonicParsing="false" onAction="#btnEditCourse" prefHeight="25.0" prefWidth="123.0" style="-fx-background-color: #6654b3; -fx-background-radius: 30;" text=" +     Edit Course " textFill="WHITE" visible="false" />
-            <Button fx:id="btnDelete" layoutX="1055.0" layoutY="85.0" mnemonicParsing="false" onAction="#btnDelete" prefHeight="25.0" prefWidth="123.0" style="-fx-background-color: #6654b3; -fx-background-radius: 30;" text="-     Delete Course " textFill="WHITE" visible="false" />
+            <Button fx:id="btnEditeCourse" layoutX="1658.0" layoutY="85.0" mnemonicParsing="false" onAction="#btnEditCourse" prefHeight="25.0" prefWidth="123.0" style="-fx-background-color: #6654b3; -fx-background-radius: 30;" text=" +     Edit Course " textFill="WHITE" visible="false" />
+            <Button fx:id="btnDelete" layoutX="1524.0" layoutY="85.0" mnemonicParsing="false" onAction="#btnDelete" prefHeight="25.0" prefWidth="123.0" style="-fx-background-color: #6654b3; -fx-background-radius: 30;" text="-     Delete Course " textFill="WHITE" visible="false" />
          </children>
       </AnchorPane>
    </children>

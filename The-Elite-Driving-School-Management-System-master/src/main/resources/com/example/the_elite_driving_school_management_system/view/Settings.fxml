@@ -13,11 +13,11 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="543.0" prefWidth="1354.0" style="-fx-background-color: #6654b3;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.the_elite_driving_school_management_system.Controller.SettingsController">
+<AnchorPane prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: #6654b3;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.the_elite_driving_school_management_system.Controller.SettingsController">
     <children>
         <AnchorPane fx:id="ANCSettings" layoutX="10.0" layoutY="10.0" prefHeight="523.0" prefWidth="1336.0" style="-fx-background-color: #fff; -fx-border-radius: 40; -fx-background-radius: 20;">
             <children>
-                <TableView fx:id="table" layoutX="9.0" layoutY="344.0" prefHeight="166.0" prefWidth="1338.0">
+                <TableView fx:id="table" layoutX="27.0" layoutY="344.0" prefHeight="707.0" prefWidth="1766.0">
                     <columns>
                         <TableColumn fx:id="colFullName" prefWidth="359.0" text="Full Name" />
                   <TableColumn fx:id="colUserName" prefWidth="509.0" text="username" />
@@ -30,13 +30,13 @@
                     </font>
                 </Label>
                 <Line endX="1232.0" endY="-7.0" layoutX="105.0" layoutY="81.0" opacity="0.15" startX="-115.0" startY="-7.0" />
-            <ImageView fitHeight="82.0" fitWidth="82.0" layoutX="617.0" layoutY="221.0">
+            <ImageView fitHeight="82.0" fitWidth="82.0" layoutX="807.0" layoutY="232.0">
                <image>
                   <Image url="@../images/warning.png" />
                </image>
             </ImageView>
-                <Button fx:id="btnSaveCourse" layoutX="1160.0" layoutY="303.0" mnemonicParsing="false" onAction="#btnsaveACourse" prefHeight="25.0" prefWidth="157.0" style="-fx-background-color: #6654b3; -fx-background-radius: 30;" text=" +     Add a User or Admin" textFill="WHITE" />
-                <AnchorPane fx:id="addUserANC" layoutX="5.0" layoutY="164.0" prefHeight="359.0" prefWidth="1338.0" style="-fx-background-color: #fff; -fx-background-radius: 20;">
+                <Button fx:id="btnSaveCourse" layoutX="1616.0" layoutY="303.0" mnemonicParsing="false" onAction="#btnsaveACourse" prefHeight="25.0" prefWidth="157.0" style="-fx-background-color: #6654b3; -fx-background-radius: 30;" text=" +     Add a User or Admin" textFill="WHITE" />
+                <AnchorPane fx:id="addUserANC" layoutX="5.0" layoutY="164.0" prefHeight="893.0" prefWidth="1806.0" style="-fx-background-color: #fff; -fx-background-radius: 20;" visible="false">
                     <children>
                         <Label fx:id="txtCourseID" layoutX="78.0" layoutY="18.0">
                             <font>
@@ -57,29 +57,29 @@
                         <Image url="@../images/search.png" />
                     </image>
                 </ImageView>
-                <Button fx:id="btnUpdateUsernameorPassword" layoutX="1103.0" layoutY="303.0" mnemonicParsing="false" onAction="#btnUpdateUsernameorPassword" prefHeight="25.0" prefWidth="214.0" style="-fx-background-color: #6654b3; -fx-background-radius: 30;" text=" +     Update Username or Password" textFill="WHITE" visible="false" />
-                <Button fx:id="btnDelete" layoutX="986.0" layoutY="303.0" mnemonicParsing="false" onAction="#btnDelete" prefHeight="25.0" prefWidth="165.0" style="-fx-background-color: #6654b3; -fx-background-radius: 30;" text="-     Delete User or Admin" textFill="WHITE" visible="false" />
-            <Label layoutX="556.0" layoutY="81.0" text="Access Contorl Panel">
+                <Button fx:id="btnUpdateUsernameorPassword" layoutX="1559.0" layoutY="303.0" mnemonicParsing="false" onAction="#btnUpdateUsernameorPassword" prefHeight="25.0" prefWidth="214.0" style="-fx-background-color: #6654b3; -fx-background-radius: 30;" text=" +     Update Username or Password" textFill="WHITE" visible="false" />
+                <Button fx:id="btnDelete" layoutX="1431.0" layoutY="303.0" mnemonicParsing="false" onAction="#btnDelete" prefHeight="25.0" prefWidth="165.0" style="-fx-background-color: #6654b3; -fx-background-radius: 30;" text="-     Delete User or Admin" textFill="WHITE" visible="false" />
+            <Label layoutX="734.0" layoutY="82.0" text="Access Contorl Panel">
                <font>
                   <Font name="System Bold" size="23.0" />
                </font>
             </Label>
-            <Label layoutX="229.0" layoutY="155.0" prefHeight="34.0" prefWidth="936.0" text="This panel is strictly reserved for authorized administrators. Accessing and managing this section carries the responsibility of safeguarding sensitive data, ensuring">
+            <Label layoutX="385.0" layoutY="164.0" prefHeight="34.0" prefWidth="936.0" text="This panel is strictly reserved for authorized administrators. Accessing and managing this section carries the responsibility of safeguarding sensitive data, ensuring">
                <font>
                   <Font size="13.0" />
                </font>
             </Label>
-            <Label layoutX="242.0" layoutY="172.0" prefHeight="34.0" prefWidth="936.0" text="the security and integrity of the system, and performing administrative tasks with professionalism. All actions performed here are logged and monitored for ">
+            <Label layoutX="398.0" layoutY="181.0" prefHeight="34.0" prefWidth="936.0" text="the security and integrity of the system, and performing administrative tasks with professionalism. All actions performed here are logged and monitored for ">
                <font>
                   <Font size="13.0" />
                </font>
             </Label>
-            <Label layoutX="224.0" layoutY="189.0" prefHeight="34.0" prefWidth="936.0" text="accountability. Unauthorized use or misuse of this panel is strictly prohibited and may result in immediate access termination, disciplinary measures, or legal action.">
+            <Label layoutX="380.0" layoutY="198.0" prefHeight="34.0" prefWidth="936.0" text="accountability. Unauthorized use or misuse of this panel is strictly prohibited and may result in immediate access termination, disciplinary measures, or legal action.">
                <font>
                   <Font size="13.0" />
                </font>
             </Label>
-            <Label layoutX="581.0" layoutY="130.0" text="Warning Alert" textFill="#bc0000">
+            <Label layoutX="777.0" layoutY="130.0" text="Warning Alert" textFill="#bc0000">
                <font>
                   <Font name="System Bold" size="23.0" />
                </font>
