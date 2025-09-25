@@ -105,4 +105,9 @@ public class StudentBoImpl implements StudentBo {
     public List<String> getCourseIdsByStudent(String studentId) {
         return studentDAO.getCourseIdsByStudentId(studentId);
     }
+
+    @Override
+    public int getStudentCount() {
+        return studentDAO.getStudentCount();
+    }
 }

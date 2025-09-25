@@ -22,4 +22,5 @@ public interface StudentBo extends CrudBo<StudentDTO> {
     List<String> getCourseIdsByStudent(String studentId);
 
 
+    int getStudentCount();
 }
